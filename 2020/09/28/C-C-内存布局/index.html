@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Hello World |  
+    C/C++内存布局 |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -47,7 +47,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-hello-world"
+  id="post-C-C-内存布局"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -58,22 +58,22 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Hello World
+  C/C++内存布局
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2020/09/27/hello-world/" class="article-date">
-  <time datetime="2020-09-27T08:38:54.120Z" itemprop="datePublished">2020-09-27</time>
+      <a href="/2020/09/28/C-C-%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/" class="article-date">
+  <time datetime="2020-09-28T06:22:38.000Z" itemprop="datePublished">2020-09-28</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">75</span>
+            <span class="post-count">702</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">2 分钟</span>
         </span>
     </span>
 </div>
@@ -97,19 +97,16 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+  <h3 id="1-1-内存分布图"><a href="#1-1-内存分布图" class="headerlink" title="1.1 内存分布图"></a>1.1 内存分布图</h3><p><img src="/2020/09/28/C-C-%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/memory.png" alt="Memory Sort Map"><br><font color="green" size="4">1. Stack段：局部变量存放区域。</font><br><font color="green" size="4">2. heap段：用户动态分配内存区域。</font><br><font color="green" size="4">3. bss段：存放未初始化的全局或静态变量内存区域。(Block Started by Symbol)</font><br><font color="green" size="4">4. 数据段：通常指存放已初始化的全局变量的内存区域。(data segment)</font><br><font color="green" size="4">5. 代码段：通常指存放程序执行代码的一块内存区域。(code segment/text segment)</font></p>
+<blockquote>
+<p>C规定，未初始化变量的初值为0，这个清0的操作是由<strong>启动代码</strong>完成的，还有已初始化变量的初值的设置，也是由<strong>启动代码</strong>完成的。<br>为了启动代码的简单化，编译链接器会把已初始化的变量放在同一个段：.data，这个段的映像（包含了各个变量的初值）保存在“只读数据段”，这样启动代码就可以简单地复制这个映像到 .data 段，所有的已初始化变量就都初始化了。<br>而未初始化变量也放在同一个段：.bss，启动代码简单地调用 memset 就可以把所有未初始化变量都清0。</p>
+</blockquote>
+<hr>
+<h3 id="1-2-在C中分为5个存储区（内存布局）"><a href="#1-2-在C中分为5个存储区（内存布局）" class="headerlink" title="1.2 在C中分为5个存储区（内存布局）"></a>1.2 在C中分为5个存储区（内存布局）</h3><p><font color="green" size="4">1. 栈区：由编译器自动分配释放，存放函数的参数值，局部变量等。其操作方式类似数据结构中的栈。</font><br><font color="green" size="4">2. 堆区:一般由程序员分配和释放(malloc,alloc,realloc,free)，程序结束时内存空间由系统回收，与数据结构的堆毫无关系。</font><br><font color="green" size="4">3. 全局/静态区：全局变量和静态变量的存储是在一块的。初始化的全局变量和静态变量在一块区域，未初始化的全局变量和未初始化的静态变量在相邻的另一块区域。</font><br><font color="green" size="4">4. 文字常量区：常量和字符串就是存放在这里，程序结束后由系统释放。</font><br><font color="green" size="4">5. 程序代码区：存放函数体的二进制代码。</font></p>
+<blockquote>
+<p>所有函数体外定义的变量就是全局变量，加了static修饰符后不管在哪里都存放在全局（静态区），全局的static变量只对该文件中有效，不能extern到别的文件用，在函数体内部定义的static表示在该函数体内有效。另外，函数体中的这样的字符串字面量存放在常量区。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">0</span>;<span class="comment">//全局初始化区</span></span><br><span class="line"><span class="keyword">char</span>* p ;<span class="comment">//全局未初始化区</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> b;<span class="comment">//局部变量</span></span><br><span class="line">	<span class="keyword">char</span> s[] = <span class="string">&quot;abc&quot;</span>;<span class="comment">//s在栈，abc在字符常量区</span></span><br><span class="line">	<span class="keyword">char</span> *p2 ;<span class="comment">//栈</span></span><br><span class="line">	<span class="keyword">char</span> *p3 = <span class="string">&quot;abcdef&quot;</span><span class="comment">//p3栈，abcdef在字符常量区</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> c = <span class="number">0</span>;<span class="comment">//全局（静态）初始化区</span></span><br><span class="line">	p1 = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(<span class="number">10</span>);<span class="comment">//在堆上开辟10个字节的内存，p1本身在栈中</span></span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
  
       <!-- reward -->
       
@@ -162,29 +159,17 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/09/27/hello-world/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/09/28/C-C-%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li></ul>
+
     </footer>
   </div>
 
    
-  <nav class="article-nav">
-    
-      <a href="/2020/09/27/hello/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            hello
-          
-        </div>
-      </a>
-    
-    
-  </nav>
-
    
 <!-- valine评论 -->
 <div id="vcomments-box">
