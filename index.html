@@ -175,7 +175,7 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h3 id="1-内存分布图"><a href="#1-内存分布图" class="headerlink" title="1. 内存分布图"></a>1. 内存分布图</h3><p><img src="/C-C-%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80.htm/memory.png" alt="Memory Sort Map"><br><font color="green" size="4">1. Stack段：局部变量存放区域。</font><br><font color="green" size="4">2. heap段：用户动态分配内存区域。</font><br><font color="green" size="4">3. bss段：存放未初始化的全局或静态变量内存区域。(Block Started by Symbol)</font><br><font color="green" size="4">4. 数据段：通常指存放已初始化的全局变量的内存区域。(data segment)</font><br><font color="green" size="4">5. 代码段：通常指存放程序执行代码的一块内存区域。(code segment/text segment)</font></p>
+  <h3 id="1-内存分布图"><a href="#1-内存分布图" class="headerlink" title="1. 内存分布图"></a>1. 内存分布图</h3><p><img src="https://pic.imgdb.cn/item/5f729e85160a154a675a2493.png" alt="Memory Sort Map"><br><font color="green" size="4">1. Stack段：局部变量存放区域。</font><br><font color="green" size="4">2. heap段：用户动态分配内存区域。</font><br><font color="green" size="4">3. bss段：存放未初始化的全局或静态变量内存区域。(Block Started by Symbol)</font><br><font color="green" size="4">4. 数据段：通常指存放已初始化的全局变量的内存区域。(data segment)</font><br><font color="green" size="4">5. 代码段：通常指存放程序执行代码的一块内存区域。(code segment/text segment)</font></p>
 <blockquote>
 <p>C规定，未初始化变量的初值为0，这个清0的操作是由<strong>启动代码</strong>完成的，还有已初始化变量的初值的设置，也是由<strong>启动代码</strong>完成的。<br>为了启动代码的简单化，编译链接器会把已初始化的变量放在同一个段：.data，这个段的映像（包含了各个变量的初值）保存在“只读数据段”，这样启动代码就可以简单地复制这个映像到 .data 段，所有的已初始化变量就都初始化了。<br>而未初始化变量也放在同一个段：.bss，启动代码简单地调用 memset 就可以把所有未初始化变量都清0。</p>
 </blockquote>
