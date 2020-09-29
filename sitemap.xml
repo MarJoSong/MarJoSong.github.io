@@ -2,21 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/tags/index.html</loc>
+    <loc>https://marjosong.gitee.io/tags/index.html</loc>
     
     <lastmod>2020-09-29</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/categories/index.html</loc>
+    <loc>https://marjosong.gitee.io/categories/index.html</loc>
     
     <lastmod>2020-09-29</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/C-C-%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80.html</loc>
+    <loc>https://marjosong.gitee.io/C-C-%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80.html</loc>
     
     <lastmod>2020-09-28</lastmod>
     
@@ -24,7 +24,7 @@
   
 
   <url>
-    <loc>http://example.com/</loc>
+    <loc>https://marjosong.gitee.io/</loc>
     <lastmod>2020-09-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -32,7 +32,7 @@
 
   
   <url>
-    <loc>http://example.com/tags/C-C/</loc>
+    <loc>https://marjosong.gitee.io/tags/C-C/</loc>
     <lastmod>2020-09-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
