@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://marjosong.github.io/QtVS%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E7%AF%87.html</loc>
+    
+    <lastmod>2020-10-08</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://marjosong.github.io/GCC%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B.html</loc>
     
     <lastmod>2020-10-01</lastmod>
@@ -39,7 +46,7 @@
 
   <url>
     <loc>https://marjosong.github.io/</loc>
-    <lastmod>2020-10-01</lastmod>
+    <lastmod>2020-10-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -47,14 +54,21 @@
   
   <url>
     <loc>https://marjosong.github.io/tags/C-C/</loc>
-    <lastmod>2020-10-01</lastmod>
+    <lastmod>2020-10-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://marjosong.github.io/tags/GCC/</loc>
-    <lastmod>2020-10-01</lastmod>
+    <lastmod>2020-10-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://marjosong.github.io/tags/Qt-VS/</loc>
+    <lastmod>2020-10-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
