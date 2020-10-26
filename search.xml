@@ -22,6 +22,18 @@
       </tags>
   </entry>
   <entry>
+    <title>C测试框架</title>
+    <url>/C%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6.html</url>
+    <content><![CDATA[<p>cmake:     3.13.4<br>g++:       8.3.0 (Raspbian 8.3.0-6+rpi1)<br>CXX_STD:c++11</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:code $ mkdir testFrame &amp;&amp; git <span class="built_in">clone</span> https://github.com/google/googletest.git</span><br><span class="line">pi@raspberrypi:code $ <span class="built_in">cd</span> googletest &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">pi@raspberrypi:build $ cmake ../	<span class="comment">#省略cmake输出</span></span><br><span class="line">pi@raspberrypi:build $ make		<span class="comment">#略make输出，如有报错，尝试在CMakelist.txt增加SET(CMAKE_CXX_FLAGS &quot;-std=c++0x&quot;)</span></span><br><span class="line">pi@raspberrypi:build $ cp lib ../../testFrame/ -r</span><br><span class="line">pi@raspberrypi:build $ cp ../googletest/include/ ../../testFrame/ -r</span><br><span class="line">pi@raspberrypi:build $ <span class="built_in">cd</span> ../../testFrame/</span><br><span class="line">pi@raspberrypi:testFrame $ vim main.cpp	<span class="comment">#main.cpp源码单独放在一个代码块里</span></span><br><span class="line">pi@raspberrypi:testFrame $ g++ -I./include -L./lib -o main main.cpp -lgtest -lpthread</span><br><span class="line">pi@raspberrypi:testFrame $ ./main </span><br><span class="line">hello world</span><br><span class="line">add(3, 4) = 7</span><br><span class="line">[==========] Running 2 tests from 1 <span class="built_in">test</span> suite.</span><br><span class="line">[----------] Global <span class="built_in">test</span> environment set-up.</span><br><span class="line">[----------] 2 tests from <span class="built_in">test</span></span><br><span class="line">[ RUN      ] test.add1</span><br><span class="line">[       OK ] test.add1 (0 ms)</span><br><span class="line">[ RUN      ] test.add2</span><br><span class="line">main.cpp:21: Failure</span><br><span class="line">Expected equality of these values:</span><br><span class="line">  add(3, 4)</span><br><span class="line">    Which is: 7</span><br><span class="line">  6</span><br><span class="line">[  FAILED  ] test.add2 (0 ms)</span><br><span class="line">[----------] 2 tests from <span class="built_in">test</span> (0 ms total)</span><br><span class="line"></span><br><span class="line">[----------] Global <span class="built_in">test</span> environment tear-down</span><br><span class="line">[==========] 2 tests from 1 <span class="built_in">test</span> suite ran. (1 ms total)</span><br><span class="line">[  PASSED  ] 1 <span class="built_in">test</span>.</span><br><span class="line">[  FAILED  ] 1 <span class="built_in">test</span>, listed below:</span><br><span class="line">[  FAILED  ] test.add2</span><br><span class="line"></span><br><span class="line"> 1 FAILED TEST</span><br><span class="line"></span><br><span class="line">IMPORTANT NOTICE - DO NOT IGNORE:</span><br><span class="line">This <span class="built_in">test</span> program did NOT call testing::InitGoogleTest() before calling RUN_ALL_TESTS(). This is INVALID. Soon Google Test will start to enforce the valid usage. Please fix it ASAP, or IT WILL START TO FAIL.</span><br></pre></td></tr></table></figure>
+<p>tttttt</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//main.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;gtest/gtest.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TEST(test, add1) &#123;</span><br><span class="line">	EXPECT_EQ(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">	EXPECT_NE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_LT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">8</span>);</span><br><span class="line">	EXPECT_LE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">	EXPECT_GT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_GE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TEST(test, add2) &#123;</span><br><span class="line">	EXPECT_EQ(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_NE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_LT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">8</span>);</span><br><span class="line">	EXPECT_LE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">	EXPECT_GT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_GE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;add(3, 4) = &quot;</span> &lt;&lt; add(<span class="number">3</span>, <span class="number">4</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> RUN_ALL_TESTS();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+
+]]></content>
+  </entry>
+  <entry>
     <title>GCC编译过程</title>
     <url>/GCC%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B.html</url>
     <content><![CDATA[<h3 id="GCC编译过程"><a href="#GCC编译过程" class="headerlink" title="GCC编译过程"></a>GCC编译过程</h3><hr>
@@ -96,6 +108,26 @@
 ]]></content>
       <tags>
         <tag>Qt, VS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SSH密钥登录二三事</title>
+    <url>/SSH%E5%AF%86%E9%92%A5%E7%99%BB%E5%BD%95%E4%BA%8C%E4%B8%89%E4%BA%8B.html</url>
+    <content><![CDATA[<p>在日常使用中，除了密码登录更多的是使用密钥方式登录SSH。</p>
+<p>使用密钥登录通常需要经过一下三个步骤</p>
+<p>客户端软件: Xshell 6</p>
+<p>服务端版本：OpenSSH_7.9p1 Raspbian-10+deb10u2, OpenSSL 1.1.1d  10 Sep 2019</p>
+<p>生成登录密钥对：</p>
+<p>点击工具栏上的 “工具”-&gt;”新建用户密钥生成向导”，按下图操作生成和保存密钥对。密钥类型默认RSA，长度2048位，密钥名称随意，密码可选，最后把用户密钥也导出来(非必要步骤，保存以备复用)。<br><img src="https://pic.downk.cc/item/5f96728d1cd1bbb86bcbb354.gif" alt="image"></p>
+<p>导出的文件有两个：</p>
+<ul>
+<li>id_rsa_mars        :用户密钥，也称私钥</li>
+<li>id_rsa_mars.pub    :主机密钥，也称公钥</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">A-&gt;&gt;B: How are you?</span><br><span class="line">B-&gt;&gt;A: Great!</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>SSH</tag>
       </tags>
   </entry>
 </search>

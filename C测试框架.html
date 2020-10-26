@@ -10,7 +10,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    QtVS开发环境配置篇 |  
+    C测试框架 |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -49,7 +49,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-QtVS开发环境配置篇"
+  id="post-C测试框架"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -60,22 +60,22 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  QtVS开发环境配置篇
+  C测试框架
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/QtVS%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E7%AF%87.html" class="article-date">
-  <time datetime="2020-10-08T14:45:29.000Z" itemprop="datePublished">2020-10-08</time>
+      <a href="/C%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6.html" class="article-date">
+  <time datetime="2020-10-19T09:06:12.000Z" itemprop="datePublished">2020-10-19</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">481</span>
+            <span class="post-count">384</span>
         </span>
     </span>
 
@@ -84,27 +84,26 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">2 分钟</span>
         </span>
     </span>
 </div>
  
     </div>
       
-    <div class="tocbot"></div>
-
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="1-Visual-studio-2019-的安装"><a href="#1-Visual-studio-2019-的安装" class="headerlink" title="1. Visual studio 2019 的安装"></a>1. Visual studio 2019 的安装</h1><p>a) 点此<a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/vs/">地址</a>进入 Visual Studio 官网，下载 Community 2019 版(实际下载的为安装器)<br><img src="https://pic.downk.cc/item/5f752469160a154a67f65681.jpg" alt="vs2019社区版"></p>
+  <p>cmake:     3.13.4<br>g++:       8.3.0 (Raspbian 8.3.0-6+rpi1)<br>CXX_STD:c++11</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:code $ mkdir testFrame &amp;&amp; git <span class="built_in">clone</span> https://github.com/google/googletest.git</span><br><span class="line">pi@raspberrypi:code $ <span class="built_in">cd</span> googletest &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">pi@raspberrypi:build $ cmake ../	<span class="comment">#省略cmake输出</span></span><br><span class="line">pi@raspberrypi:build $ make		<span class="comment">#略make输出，如有报错，尝试在CMakelist.txt增加SET(CMAKE_CXX_FLAGS &quot;-std=c++0x&quot;)</span></span><br><span class="line">pi@raspberrypi:build $ cp lib ../../testFrame/ -r</span><br><span class="line">pi@raspberrypi:build $ cp ../googletest/include/ ../../testFrame/ -r</span><br><span class="line">pi@raspberrypi:build $ <span class="built_in">cd</span> ../../testFrame/</span><br><span class="line">pi@raspberrypi:testFrame $ vim main.cpp	<span class="comment">#main.cpp源码单独放在一个代码块里</span></span><br><span class="line">pi@raspberrypi:testFrame $ g++ -I./include -L./lib -o main main.cpp -lgtest -lpthread</span><br><span class="line">pi@raspberrypi:testFrame $ ./main </span><br><span class="line">hello world</span><br><span class="line">add(3, 4) = 7</span><br><span class="line">[==========] Running 2 tests from 1 <span class="built_in">test</span> suite.</span><br><span class="line">[----------] Global <span class="built_in">test</span> environment set-up.</span><br><span class="line">[----------] 2 tests from <span class="built_in">test</span></span><br><span class="line">[ RUN      ] test.add1</span><br><span class="line">[       OK ] test.add1 (0 ms)</span><br><span class="line">[ RUN      ] test.add2</span><br><span class="line">main.cpp:21: Failure</span><br><span class="line">Expected equality of these values:</span><br><span class="line">  add(3, 4)</span><br><span class="line">    Which is: 7</span><br><span class="line">  6</span><br><span class="line">[  FAILED  ] test.add2 (0 ms)</span><br><span class="line">[----------] 2 tests from <span class="built_in">test</span> (0 ms total)</span><br><span class="line"></span><br><span class="line">[----------] Global <span class="built_in">test</span> environment tear-down</span><br><span class="line">[==========] 2 tests from 1 <span class="built_in">test</span> suite ran. (1 ms total)</span><br><span class="line">[  PASSED  ] 1 <span class="built_in">test</span>.</span><br><span class="line">[  FAILED  ] 1 <span class="built_in">test</span>, listed below:</span><br><span class="line">[  FAILED  ] test.add2</span><br><span class="line"></span><br><span class="line"> 1 FAILED TEST</span><br><span class="line"></span><br><span class="line">IMPORTANT NOTICE - DO NOT IGNORE:</span><br><span class="line">This <span class="built_in">test</span> program did NOT call testing::InitGoogleTest() before calling RUN_ALL_TESTS(). This is INVALID. Soon Google Test will start to enforce the valid usage. Please fix it ASAP, or IT WILL START TO FAIL.</span><br></pre></td></tr></table></figure>
+<p>tttttt</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;gtest/gtest.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TEST(test, add1) &#123;</span><br><span class="line">	EXPECT_EQ(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">	EXPECT_NE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_LT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">8</span>);</span><br><span class="line">	EXPECT_LE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">	EXPECT_GT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_GE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TEST(test, add2) &#123;</span><br><span class="line">	EXPECT_EQ(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_NE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_LT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">8</span>);</span><br><span class="line">	EXPECT_LE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">	EXPECT_GT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_GE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;add(3, 4) = &quot;</span> &lt;&lt; add(<span class="number">3</span>, <span class="number">4</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> RUN_ALL_TESTS();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<p>b) 安装完后会启动 Visual Studio Installer 安装器，工作负载勾选“使用C++的桌面开发”后直接进行安装即可<br><img src="https://pic.downk.cc/item/5f752c0c160a154a67f7be78.jpg" alt="vs2019安装组件"></p>
-<h1 id="2-Qt-5-14-2-的安装"><a href="#2-Qt-5-14-2-的安装" class="headerlink" title="2. Qt 5.14.2 的安装"></a>2. Qt 5.14.2 的安装</h1><p>a) 从此<a target="_blank" rel="noopener" href="http://download.qt.io/official_releases/qt/5.14/5.14.2/">镜像站</a>下载会自动选择最近的镜像地址，下载如下版本<br><img src="https://pic.downk.cc/item/5f76d259160a154a6754183f.jpg" alt="image"><br>b) 下载完成后安装，注册登录后一直下一步到此界面，红框内为必勾选项目，完成安装<br><img src="https://pic.downk.cc/item/5f76d497160a154a6754b6f1.jpg" alt="image"></p>
-<h1 id="3-Qt-Visual-Studio-Tools-扩展的安装"><a href="#3-Qt-Visual-Studio-Tools-扩展的安装" class="headerlink" title="3. Qt Visual Studio Tools 扩展的安装"></a>3. Qt Visual Studio Tools 扩展的安装</h1><p>a) 安装Qt Visual Studio Tools的方法有两种，一种是源码编译，参考<a target="_blank" rel="noopener" href="https://wiki.qt.io/Visual_Studio_Add-in">这里</a>。<br><br>b) 另一种是通过VS自带的插件管理器安装，步骤如下：<br><br>启动VS2019,选择继续但无需代码进入到主界面<br><img src="https://pic.downk.cc/item/5f76d70d160a154a675553fe.jpg" alt="image"><br>c) 从菜单栏依次点击“扩展-&gt;管理扩展”，打开界面后，先点联机，在输入框搜索Qt，点下载Qt Visual Studio Tools，因为众所周知的原因，下载插件的速度较慢，此外还可以通过右边的详细信息拿到下载地址的url，用度盘离线下载，我分享一个已经下载好的，<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1MkwPsNwEyANAAbQeoSJfMw">提取码：7692</a><br><img src="https://pic.downk.cc/item/5f76d933160a154a6755e924.jpg" alt="image"><br>关闭VS2019后,安装下载的插件(通过管理扩展页面下载的插件可以跳过下面的安装过程)，<img src="https://pic.downk.cc/item/5f76db8f160a154a67568e6e.jpg" alt="image"><br>安装完成后再次启动VS2019</p>
-<h1 id="4-Qt-Visual-Studio-Tools-插件的配置"><a href="#4-Qt-Visual-Studio-Tools-插件的配置" class="headerlink" title="4. Qt Visual Studio Tools 插件的配置"></a>4. Qt Visual Studio Tools 插件的配置</h1><p>a)  从菜单栏依次点击“扩展-&gt;Qt VS Tools-&gt;Qt Options”，按下图点开扩展中的 Qt Options<br><img src="https://pic.downk.cc/item/5f76dd6a160a154a67570f90.jpg"><br>b) 弹出Qt Options页面后，点击Add按钮弹出以下界面，再点击Path行最右侧的按钮。<br><img src="https://pic.downk.cc/item/5f76dd6a160a154a67570f93.jpg"><br>c) 定位到Qt 5.14.2的安装路径，默认为C:\Qt\Qt5.14.2\5.14.2\msvc2017和C:\Qt\Qt5.14.2\5.14.2\msvc2017_64，添加这两个编译平台，Default配置随意，保存即可完成配置<br><img src="https://pic.downk.cc/item/5f7f26761cd1bbb86bd01d62.jpg"></p>
+
+
  
       <!-- reward -->
       
@@ -157,32 +156,30 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://marjosong.github.io/QtVS%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E7%AF%87.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://marjosong.github.io/C%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6.html" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt-VS/" rel="tag">Qt, VS</a></li></ul>
-
     </footer>
   </div>
 
    
   <nav class="article-nav">
     
-      <a href="/C%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6.html" class="article-nav-link">
+      <a href="/SSH%E5%AF%86%E9%92%A5%E7%99%BB%E5%BD%95%E4%BA%8C%E4%B8%89%E4%BA%8B.html" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            C测试框架
+            SSH密钥登录二三事
           
         </div>
       </a>
     
     
-      <a href="/GCC%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B.html" class="article-nav-link">
+      <a href="/QtVS%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E7%AF%87.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">GCC编译过程</div>
+        <div class="article-nav-title">QtVS开发环境配置篇</div>
       </a>
     
   </nav>
