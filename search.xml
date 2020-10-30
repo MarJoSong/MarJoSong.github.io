@@ -187,4 +187,13 @@
         <tag>SSH</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Git本地初始化仓库并推送至远程</title>
+    <url>/Git%E6%9C%AC%E5%9C%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%93%E5%BA%93%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E8%BF%9C%E7%A8%8B.html</url>
+    <content><![CDATA[<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">Mars@company MINGW64 /d/git/C-Demos</span><br><span class="line"><span class="comment">#初始化本地仓库</span></span><br><span class="line">$ git init      </span><br><span class="line">Reinitialized existing Git repository <span class="keyword">in</span> D:/git/C-Demos/.git/</span><br><span class="line"></span><br><span class="line">Mars@company MINGW64 /d/git/C-Demos (master)</span><br><span class="line"><span class="comment">#添加文件到仓库</span></span><br><span class="line">$ git add .     </span><br><span class="line">warning: LF will be replaced by CRLF <span class="keyword">in</span> select/CMakeLists.txt.</span><br><span class="line">The file will have its original line endings <span class="keyword">in</span> your working directory</span><br><span class="line"></span><br><span class="line">Mars@company MINGW64 /d/git/C-Demos (master)</span><br><span class="line"><span class="comment">#提交修改</span></span><br><span class="line">$ git commit -m <span class="string">&quot;init project&quot;</span>  </span><br><span class="line">[master e919c88] init project</span><br><span class="line"> 52 files changed, 535 insertions(+), 2147 deletions(-)</span><br><span class="line"> ...  <span class="comment">#此处省略若干行</span></span><br><span class="line"></span><br><span class="line">Mars@company MINGW64 /d/git/C-Demos (master)</span><br><span class="line"><span class="comment">#将本地仓库添加到远程仓库</span></span><br><span class="line">$ git remote add origin https://github.com/MarJoSong/C-Demos.git    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Mars@company MINGW64 /d/git/C-Demos (master)</span><br><span class="line"><span class="comment">#强制提交本地代码到远程仓库(会删除原来仓库里面的文件)</span></span><br><span class="line">$ git push -u origin master -f</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
 </search>
