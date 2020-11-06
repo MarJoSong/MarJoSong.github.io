@@ -10,7 +10,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    SSH密钥登录二三事 |  
+    Git基本操作指北 |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -49,7 +49,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-SSH登录二三事"
+  id="post-Git基本操作指北"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -60,22 +60,22 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  SSH密钥登录二三事
+  Git基本操作指北
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/SSH%E7%99%BB%E5%BD%95%E4%BA%8C%E4%B8%89%E4%BA%8B.html" class="article-date">
-  <time datetime="2020-10-23T09:17:04.000Z" itemprop="datePublished">2020-10-23</time>
+      <a href="/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8C%97.html" class="article-date">
+  <time datetime="2020-10-30T09:56:17.000Z" itemprop="datePublished">2020-10-30</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.2k</span>
+            <span class="post-count">670</span>
         </span>
     </span>
 
@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">5 分钟</span>
+            <span class="post-count">3 分钟</span>
         </span>
     </span>
 </div>
@@ -99,69 +99,15 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>在日常使用中，除了密码登录更多的是使用密钥方式登录SSH。密钥对分成公钥和私钥，将公钥添加到需要登录的服务器用户的家目录下.ssh/authorized_keys文件中，在ssh登录时使用’-i’参数指定私钥 或 将私钥天骄到Xshell用户密钥中。</p>
-<p>使用密钥登录通常需要经过以下步骤：</br></p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> 客户端软件：Xshell 6</br></li>
-<li><input checked="" disabled="" type="checkbox"> 客户端终端：Linux company 4.4.0-18362-Microsoft</br></li>
-<li><input checked="" disabled="" type="checkbox"> 服务端版本：OpenSSH_7.9p1 Raspbian-10+deb10u2, OpenSSL 1.1.1d  10 Sep 2019</li>
-</ul>
-<h3 id="生成登录密钥对"><a href="#生成登录密钥对" class="headerlink" title="生成登录密钥对"></a>生成登录密钥对</h3><ul>
-<li>方法一：使用ssh-keygen命令生成密钥对</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t 加密方式 -C 备注</span><br></pre></td></tr></table></figure>
+  <h3 id="添加密钥"><a href="#添加密钥" class="headerlink" title="添加密钥"></a>添加密钥</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成密钥 -t 指定加密方式 -C 为密钥注释</span></span><br><span class="line">Mars@company MINGW64 ~</span><br><span class="line">$ ssh-keygen.exe -t rsa -C <span class="string">&quot;huahua&quot;</span></span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/c/Users/Mars/.ssh/id_rsa):</span><br><span class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):</span><br><span class="line">Enter same passphrase again:</span><br><span class="line">Your identification has been saved <span class="keyword">in</span> ./huahua</span><br><span class="line">Your public key has been saved <span class="keyword">in</span> ./huahua.pub</span><br><span class="line">The key fingerprint is:</span><br><span class="line">SHA256:rVborm7Xt7FhEmrmKbkaSA8WLsP0d4svizcCBOacsWE huahua</span><br><span class="line">The key<span class="string">&#x27;s randomart image is:</span></span><br><span class="line"><span class="string">+---[RSA 3072]----+</span></span><br><span class="line"><span class="string">|                 |</span></span><br><span class="line"><span class="string">|.E               |</span></span><br><span class="line"><span class="string">|*.*              |</span></span><br><span class="line"><span class="string">|oB..     o       |</span></span><br><span class="line"><span class="string">|+.=. . .S +      |</span></span><br><span class="line"><span class="string">| * +. o..+ .     |</span></span><br><span class="line"><span class="string">|  o o. oB.. +    |</span></span><br><span class="line"><span class="string">|   ..==*...o.+   |</span></span><br><span class="line"><span class="string">|   .+=B*+  .o.   |</span></span><br><span class="line"><span class="string">+----[SHA256]-----+</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 把公钥内容(id_rsa.pub)添加到github个人设置页SSH and GPG keys里</span></span><br><span class="line"><span class="string">Mars@company MINGW64 ~</span></span><br><span class="line"><span class="string">$ cat id_rsa.pub</span></span><br><span class="line"><span class="string">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDcmn0i3Lt+EN3bf879l7Mb5zscFeQN4lH4Qj9qOS0lXNsVnT0RfqqD3QDUO03bEzzWWiNgjnTGZj7QPYHB7c3PQZhT5tPidWyYfR22EbtKfNysXvuDRvjuu/jzl2QFYGfI3IWbGj2H9pr6PScxYfAqxHJ6ZBqLtBjdBsdVT5pY28Cut29Yf06NCbSpb8AyUY5RZpeDZcnpVeADkoA0hUP8J7ny1T+2X7RpAjLvdfpGU0yPkEsata4MuwcliweW17fgM6vcqsN7OOMNYjCiWafl444x1dhfNwueJelXSL/4mNG5q7d5NxS3jRlxsA6JtPe/27DohQs2pKH44K+86tC9jSWTRJH5HGU7rDS7xV3Jipr9VSFpyqin5DQckJlVCggN1yOLXUITgeiT+1wO6ejrcKV1bq1EtaeuyQ7/Kopk/cdIloLQpS6VK2c9ftvIzNaSQz8w+MXL26I/fI8ZF3/LLHzcfCJeQkUKO7Ev2GxbTh3cG397+sEKYsq+ASGLbaE= huahua</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 设置提交代码时使用的名字和邮箱</span></span><br><span class="line"><span class="string">Mars@company MINGW64 ~</span></span><br><span class="line"><span class="string">$ git config --global user.name &quot;marjosong&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Mars@company MINGW64 ~</span></span><br><span class="line"><span class="string">$ git config --global user.email  &quot;769200142@qq.com&quot;</span></span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">mars@company:~$ ssh-keygen -t rsa #加密方式为rsa</span><br><span class="line">Generating public&#x2F;private rsa key pair.</span><br><span class="line">Enter file in which to save the key (&#x2F;home&#x2F;mars&#x2F;.ssh&#x2F;id_rsa): &#x2F;home&#x2F;mars&#x2F;.ssh&#x2F;id_rsa_mars #置空使用默认路径和命名</span><br><span class="line">Enter passphrase (empty for no passphrase): #置空表示不为密钥设置密码</span><br><span class="line">Enter same passphrase again:</span><br><span class="line">Your identification has been saved in &#x2F;home&#x2F;mars&#x2F;.ssh&#x2F;id_rsa_mars</span><br><span class="line">Your public key has been saved in &#x2F;home&#x2F;mars&#x2F;.ssh&#x2F;id_rsa_mars.pub</span><br><span class="line">The key fingerprint is:</span><br><span class="line">SHA256:Y11r6HcjCAK35&#x2F;6N0ry1e7aEeQoIdhfws1F02YmpNl4 mars@company</span><br><span class="line">The key&#39;s randomart image is:</span><br><span class="line">+---[RSA 3072]----+</span><br><span class="line">|        .  .o +o.|</span><br><span class="line">|         o . +...|</span><br><span class="line">|    . .   &#x3D; o    |</span><br><span class="line">|     o . . @ E   |</span><br><span class="line">|      &#x3D; S B &#x3D;    |</span><br><span class="line">|     . B * + o   |</span><br><span class="line">|        oo+ * &#x3D;  |</span><br><span class="line">|       .. o* Bo. |</span><br><span class="line">|        .o+.&#x3D;+.. |</span><br><span class="line">+----[SHA256]-----+</span><br><span class="line">mars@company:~$ cd .ssh&#x2F; &amp;&amp; ll</span><br><span class="line">total 8.0K</span><br><span class="line">-rw------- 1 mars mars 2.6K Oct 26 15:22 id_rsa_mars #私钥的权限必须为0600</span><br><span class="line">-rw-r--r-- 1 mars mars  566 Oct 26 15:22 id_rsa_mars.pub</span><br></pre></td></tr></table></figure>
-<ul>
-<li>方法二：使用Xshell客户端生成密钥对</li>
-</ul>
-<p>点击Xshell菜单栏上的”工具”-&gt;”新建用户密钥生成向导”，按下图操作生成和保存密钥对。</br><br>密钥类型默认RSA，长度2048位，名称随意，密码可选，最后把用户密钥也导出来(非必要步骤，保存以备复用)。<br><img src="https://pic.downk.cc/item/5f96728d1cd1bbb86bcbb354.gif" alt="image"></p>
-<p><strong>两种方法都可以显式地看到生成文件</strong>：</p>
-<table>
-<thead>
-<tr>
-<th>文件</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>id_rsa_mars.pub</td>
-<td>公钥(主机密钥)，保存到服务器上，来验证请求登录用户的私钥</td>
-</tr>
-<tr>
-<td>id_rsa_mars</td>
-<td>私钥(用户密钥)，SSH登录时指定，提供给服务器进行登录验证</td>
-</tr>
-</tbody></table>
-<h3 id="服务器注册公钥"><a href="#服务器注册公钥" class="headerlink" title="服务器注册公钥"></a>服务器注册公钥</h3><p>需要把公钥添加到要登录的用户家目录下的.ssh路径下的authorized_keys文件中，一个便捷的方式是使用 ssh-copy-id 命令上传公钥，这一步需要登录用户的密码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -i 公钥路径 登录用户名@登录主机名或ip -p 端口</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mars@company:~&#x2F;.ssh$ ssh-copy-id -i id_rsa_mars.pub pi@192.168.0.125 -p 22</span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;ssh-copy-id: INFO: Source of key(s) to be installed: &quot;id_rsa_mars.pub&quot;</span><br><span class="line">The authenticity of host &#39;[192.168.0.125]:22 ([192.168.0.125]:22)&#39; can&#39;t be established.</span><br><span class="line">ECDSA key fingerprint is SHA256:YG43kzBF5jzsbL2yo9Uw&#x2F;negmUvVMyiGACksK5&#x2F;ppUc.</span><br><span class="line">Are you sure you want to continue connecting (yes&#x2F;no&#x2F;[fingerprint])? yes</span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed</span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys</span><br><span class="line">pi@192.168.0.125&#39;s password:</span><br><span class="line"></span><br><span class="line">Number of key(s) added: 1</span><br><span class="line"></span><br><span class="line">Now try logging into the machine, with:   &quot;ssh -p &#39;22&#39; &#39;pi@192.168.0.125&#39;&quot;</span><br><span class="line">and check to make sure that only the key(s) you wanted were added.</span><br><span class="line"></span><br><span class="line"># 检查是否上传完成</span><br><span class="line">pi@raspberrypi:~ $ cat .ssh&#x2F;authorized_keys </span><br><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA1BzYNq7RB5&#x2F;OCXVbPIs6EGj2OjS9ug0mHpdFgWngLFAaC3&#x2F;msX9kvgLvM90mklExljtCXu3mNXiPDJpItWiQJcdKn90leciEtgJQiAa&#x2F;hNbIeurGrN6D9+uCYbNFjzwezTTEghXzeHCC&#x2F;aP+M3M+TbyLSTAdadcSSFQJ8jgYh&#x2F;wYvgeR03tSZrfwoFvkKeiep0z4P1hKz7weMPGpr+GIW3egutx&#x2F;8gXfJ80ZE8ErPUsdasmsyHSNO3SjkDpXXarMkeb8bc6LLrZaxtp4uPw9M7YLcyuiLvUjyHvqM7D4Kh4bDJTXOL5mpVdAXrB3C8a32hMzwzn6REW1o6Yqh8Tl6qw&#x3D;&#x3D;</span><br></pre></td></tr></table></figure>
+<h3 id="本地初始化仓库并推送至远程"><a href="#本地初始化仓库并推送至远程" class="headerlink" title="本地初始化仓库并推送至远程"></a>本地初始化仓库并推送至远程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始化本地仓库</span></span><br><span class="line">Mars@company MINGW64 /d/git/C-Demos</span><br><span class="line">$ git init      </span><br><span class="line">Reinitialized existing Git repository <span class="keyword">in</span> D:/git/C-Demos/.git/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加文件到仓库</span></span><br><span class="line">Mars@company MINGW64 /d/git/C-Demos (master)</span><br><span class="line">$ git add .     </span><br><span class="line">warning: LF will be replaced by CRLF <span class="keyword">in</span> select/CMakeLists.txt.</span><br><span class="line">The file will have its original line endings <span class="keyword">in</span> your working directory</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交修改</span></span><br><span class="line">Mars@company MINGW64 /d/git/C-Demos (master)</span><br><span class="line">$ git commit -m <span class="string">&quot;init project&quot;</span>  </span><br><span class="line">[master e919c88] init project</span><br><span class="line"> 52 files changed, 535 insertions(+), 2147 deletions(-)</span><br><span class="line"> ...  <span class="comment">#此处省略若干行</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将本地仓库添加到远程仓库(这里故意犯了个错误)</span></span><br><span class="line">Mars@company MINGW64 /d/git/C-Demos (master)</span><br><span class="line">$ git remote add origin https://github.com/MarJoSong/C-Demos.git    </span><br><span class="line"></span><br><span class="line"><span class="comment"># 强制提交本地代码到远程仓库(会删除原来仓库里面的文件)</span></span><br><span class="line">Mars@company MINGW64 /d/git/C-Demos (master)</span><br><span class="line">$ git push -u origin master -f</span><br></pre></td></tr></table></figure>
 
-<h3 id="客户端登录时指定私钥"><a href="#客户端登录时指定私钥" class="headerlink" title="客户端登录时指定私钥"></a>客户端登录时指定私钥</h3><ul>
-<li>方法一：使用ssh命令指定私钥</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i 私钥路径 登录用户名@登录主机名或ip -p 端口</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mars@company:~&#x2F;.ssh$ ssh -i id_rsa_mars pi@192.168.0.125 -p 21414</span><br><span class="line">Linux raspberrypi 4.19.97-v7l+ #1294 SMP Thu Jan 30 13:21:14 GMT 2020 armv7l</span><br><span class="line"></span><br><span class="line">The programs included with the Debian GNU&#x2F;Linux system are free software;</span><br><span class="line">the exact distribution terms for each program are described in the</span><br><span class="line">individual files in &#x2F;usr&#x2F;share&#x2F;doc&#x2F;*&#x2F;copyright.</span><br><span class="line"></span><br><span class="line">Debian GNU&#x2F;Linux comes with ABSOLUTELY NO WARRANTY, to the extent</span><br><span class="line">permitted by applicable law.</span><br><span class="line">Last login: Mon Oct 26 16:17:34 2020 from 192.168.137.1</span><br><span class="line">pi@raspberrypi:~ $</span><br></pre></td></tr></table></figure>
-<ul>
-<li>方法二：使用Xshell指定用户密钥</li>
-</ul>
-<p><img src="https://pic.downk.cc/item/5f9688021cd1bbb86bd16d11.jpg" alt="image"></p>
-<h3 id="可能出现的错误"><a href="#可能出现的错误" class="headerlink" title="可能出现的错误"></a>可能出现的错误</h3><p>1.权限问题，改为0600即可解决</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mars@company:~&#x2F;.ssh$ ssh -i id_rsa_mars -p 21414 &#39;pi@103.46.128.21&#39;</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">Permissions 0777 for &#39;id_rsa_mars&#39; are too open.</span><br><span class="line">It is required that your private key files are NOT accessible by others.</span><br><span class="line">This private key will be ignored.</span><br><span class="line">Load key &quot;id_rsa_mars&quot;: bad permissions</span><br><span class="line">pi@103.46.128.21&#39;s password:</span><br><span class="line"></span><br><span class="line">mars@company:~&#x2F;.ssh$ chmod 0600 id_rsa_mars   #修改私钥权限为0600</span><br></pre></td></tr></table></figure>
+<h3 id="修改远程仓库的地址"><a href="#修改远程仓库的地址" class="headerlink" title="修改远程仓库的地址"></a>修改远程仓库的地址</h3><p>上一步的的添加的远程仓库是https的形式，会导致每次推送代码都需要输入账号密码，现在来解决这个问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Mars@company MINGW64 /d/git/C-Demos (master)</span><br><span class="line">$ git remote -v</span><br><span class="line">origin  https://github.com/MarJoSong/C-Demos.git (fetch)</span><br><span class="line">origin  https://github.com/MarJoSong/C-Demos.git (push)</span><br><span class="line"></span><br><span class="line">Mars@company MINGW64 /e/C-Demos (master)</span><br><span class="line">$ git remote rm origin</span><br><span class="line"></span><br><span class="line">Mars@company MINGW64 /e/C-Demos (master)</span><br><span class="line">$ git remote add origin git@github.com:MarJoSong/C-Demos.git</span><br><span class="line"></span><br><span class="line">Mars@company MINGW64 /e/C-Demos (master)</span><br><span class="line">$ git remote -v</span><br><span class="line">origin  git@github.com:MarJoSong/C-Demos.git (fetch)</span><br><span class="line">origin  git@github.com:MarJoSong/C-Demos.git (push)</span><br></pre></td></tr></table></figure>
 
-<p>2.ssh -i指定密钥登录仍需要输入密码，Xshell提示<strong>所选的用户密钥未在远程主机上注册</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">原因是公钥(主机密钥)没有添加成功，重新添加后即可解决</span><br></pre></td></tr></table></figure>
-
-<h3 id="ssh命令备忘"><a href="#ssh命令备忘" class="headerlink" title="ssh命令备忘"></a>ssh命令备忘</h3><ul>
-<li><p>从某主机的80端口开启到本地主机2001端口的隧道</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -N -L2001:localhost:80 somemachine</span><br></pre></td></tr></table></figure>
-<p>现在你可以直接在浏览器中输入<a href="http://localhost:2001访问这个网站。">http://localhost:2001访问这个网站。</a></p>
-</li>
-<li><p>直接连接到只能通过主机B连接的主机A</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -t hostA ssh hostB</span><br></pre></td></tr></table></figure>
-<p>当然，你要能访问主机A才行。</p>
-</li>
-</ul>
+<h3 id="为每一个项目建立-gitignore"><a href="#为每一个项目建立-gitignore" class="headerlink" title="为每一个项目建立.gitignore"></a>为每一个项目建立.gitignore</h3><p>在我们编译调试代码的时候会生成很多非必要的文件，通过.gitignore避免对这些文件的状态跟踪</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在项目根目录建立.gitgnore文件，编写规则百度</span></span><br><span class="line">Mars@company MINGW64 /d/git/C-Demos (master)</span><br><span class="line">$ cat .gitignore</span><br><span class="line">/*/cmake-build-*/</span><br><span class="line">/*/.idea/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将所有文件移出版本控制</span></span><br><span class="line">Mars@company MINGW64 /d/git/C-Demos (master)</span><br><span class="line">$ git rm -r --cached .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加所有文件到版本控制(使用.gitgnore规则)</span></span><br><span class="line">Mars@company MINGW64 /d/git/C-Demos (master)</span><br><span class="line">$ git add .</span><br><span class="line"></span><br><span class="line">Mars@company MINGW64 /d/git/C-Demos (master)</span><br><span class="line">$ git commit -m <span class="string">&quot;update .gitignore&quot;</span></span><br><span class="line"></span><br><span class="line">Mars@company MINGW64 /d/git/C-Demos (master)</span><br><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
  
       <!-- reward -->
       
@@ -214,12 +160,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://marjosong.github.io/SSH%E7%99%BB%E5%BD%95%E4%BA%8C%E4%B8%89%E4%BA%8B.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://marjosong.github.io/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8C%97.html" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li></ul>
 
     </footer>
   </div>
@@ -227,19 +173,19 @@
    
   <nav class="article-nav">
     
-      <a href="/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8C%97.html" class="article-nav-link">
+      <a href="/CMake%E7%BC%96%E5%86%99%E8%A7%84%E5%88%99.html" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            Git基本操作指北
+            CMake编写规则
           
         </div>
       </a>
     
     
-      <a href="/C%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6.html" class="article-nav-link">
+      <a href="/SSH%E7%99%BB%E5%BD%95%E4%BA%8C%E4%B8%89%E4%BA%8B.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">C测试框架</div>
+        <div class="article-nav-title">SSH密钥登录二三事</div>
       </a>
     
   </nav>
