@@ -103,14 +103,17 @@
 <p>见如下反汇编代码</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="number">004117</span>DE  mov         dword ptr [a],<span class="number">0</span> </span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">-16</span>;</span><br><span class="line"><span class="number">004117E5</span>  mov         dword ptr [b],<span class="number">0F</span>FFFFFF0h </span><br><span class="line">	a = b / <span class="number">8</span>;</span><br><span class="line"><span class="number">004117</span>EC  mov         eax,dword ptr [b] </span><br><span class="line"><span class="number">004117</span>EF  cdq         <span class="comment">//使用eax的第31位(即符号位填充edx)</span></span><br><span class="line"><span class="number">004117F</span>0  <span class="keyword">and</span>         edx,<span class="number">7</span> </span><br><span class="line"><span class="number">004117F</span>3  add         eax,edx </span><br><span class="line"><span class="number">004117F</span>5  sar         eax,<span class="number">3</span> </span><br><span class="line"><span class="number">004117F</span>8  mov         dword ptr [a],eax </span><br><span class="line">	a = b &gt;&gt; <span class="number">3</span>;</span><br><span class="line"><span class="number">004117F</span>B  mov         eax,dword ptr [b] </span><br><span class="line"><span class="number">004117F</span>E  sar         eax,<span class="number">3</span> </span><br><span class="line"><span class="number">00411801</span>  mov         dword ptr [a],eax </span><br></pre></td></tr></table></figure>
 <p>可以看到，一条除法语句被编译成6条机器指令，而以为指令只有三条。<br>从效率上看，使用移位指令有更高的效率，因为移位指令占用更少的机器周期。<br>从硬件上看，移位对硬件更容易实现，移一位就乘/除2，所以会用移位。</p>
-<h3 id="函数调用过程中，函数参数的入栈顺序，为什么？"><a href="#函数调用过程中，函数参数的入栈顺序，为什么？" class="headerlink" title="函数调用过程中，函数参数的入栈顺序，为什么？"></a>函数调用过程中，函数参数的入栈顺序，为什么？</h3><p>C语言函数参数采用自右向左的入栈顺序，主要原因是为了支持可变长参数形式。<br>C方式参数入栈顺序（从右至左）的好处就是可以动态变化参数个数。<br>通过栈堆分析可知，自左向右的入栈方式，最前面的参数被压在栈底。<br>除非知道参数个数，否则是无法通过栈指针的相对位移求得最左边的参数。<br>这样就变成了左边参数的个数不确定，正好和动态参数个数的方向相反。<br>从右至左则最左边的参数在栈顶</p>
-<h3 id="结构体大小的影响因素"><a href="#结构体大小的影响因素" class="headerlink" title="结构体大小的影响因素"></a>结构体大小的影响因素</h3><ul>
+<h3 id="函数调用过程中，函数参数的入栈顺序，为什么？"><a href="#函数调用过程中，函数参数的入栈顺序，为什么？" class="headerlink" title="函数调用过程中，函数参数的入栈顺序，为什么？"></a>函数调用过程中，函数参数的入栈顺序，为什么？</h3><hr>
+<p>C语言函数参数采用自右向左的入栈顺序，主要原因是为了支持可变长参数形式。<br>C方式参数入栈顺序（从右至左）的好处就是可以动态变化参数个数。<br>通过栈堆分析可知，自左向右的入栈方式，最前面的参数被压在栈底。<br>除非知道参数个数，否则是无法通过栈指针的相对位移求得最左边的参数。<br>这样就变成了左边参数的个数不确定，正好和动态参数个数的方向相反。<br>从右至左则最左边的参数在栈顶</p>
+<h3 id="结构体大小的影响因素"><a href="#结构体大小的影响因素" class="headerlink" title="结构体大小的影响因素"></a>结构体大小的影响因素</h3><hr>
+<ul>
 <li>编译器，编译参数和操作系统位数 –影响基础类型的大小和指针大小</li>
 <li>#pragma pack(1) –伪指令指定的对齐模数</li>
 <li>对齐模数，该模数是【#pragma pack指定的数值】、【未指定#pragma pack时，系统默认的对齐模数（32位系统为4字节，64位为8字节）】和【结构体内部最大的基本数据类型成员】长度中数值较小者，结构体成员不能跨对齐模数的倍数</li>
 </ul>
 <p>各个类型的变量长度由编译器来决定（实际上与操作系统位数和编译器都有关）<br>可用sizeof得到，当前主流编译器一般是32位或64位<br>|类型|32位|64位|<br>| —— | —— | —— |<br>|char|1|1|<br>|short int|2|2|<br>|int|4|4|<br>|long int |4|8|<br>|long long int|8|8|<br>|char*| 4|8|<br>|float| 4|4|<br>|double |8|8|</p>
-<h3 id="结构体对齐包括两个方面的含义"><a href="#结构体对齐包括两个方面的含义" class="headerlink" title="结构体对齐包括两个方面的含义"></a>结构体对齐包括两个方面的含义</h3><ul>
+<h3 id="结构体对齐包括两个方面的含义"><a href="#结构体对齐包括两个方面的含义" class="headerlink" title="结构体对齐包括两个方面的含义"></a>结构体对齐包括两个方面的含义</h3><hr>
+<ul>
 <li>结构体总长度；</li>
 <li>结构体内各数据成员的内存对齐，即该数据成员相对结构体的起始位置；</li>
 </ul>
