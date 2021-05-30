@@ -10,7 +10,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    人类一思考上帝就发笑 |  
+    剑指 Offer 11. 数值的整数次方 |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -49,7 +49,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-人类一思考上帝就发笑"
+  id="post-剑指 Offer 11. 数值的整数次方"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -60,22 +60,22 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  人类一思考上帝就发笑
+  剑指 Offer 11. 数值的整数次方
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/%E4%BA%BA%E7%B1%BB%E4%B8%80%E6%80%9D%E8%80%83%E4%B8%8A%E5%B8%9D%E5%B0%B1%E5%8F%91%E7%AC%91.html" class="article-date">
-  <time datetime="2021-05-26T03:20:20.000Z" itemprop="datePublished">2021-05-26</time>
+      <a href="/%E5%89%91%E6%8C%87%20Offer%2011.%20%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9.html" class="article-date">
+  <time datetime="2021-05-28T08:30:00.000Z" itemprop="datePublished">2021-05-28</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">2.1k</span>
+            <span class="post-count">548</span>
         </span>
     </span>
 
@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">7 分钟</span>
+            <span class="post-count">2 分钟</span>
         </span>
     </span>
 </div>
@@ -99,96 +99,16 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h3 id="为什么说移位运算在运行时比普通乘除法效率高"><a href="#为什么说移位运算在运行时比普通乘除法效率高" class="headerlink" title="为什么说移位运算在运行时比普通乘除法效率高"></a>为什么说移位运算在运行时比普通乘除法效率高</h3><hr>
-<p>见如下反汇编代码</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="number">004117</span>DE  mov         dword ptr [a],<span class="number">0</span> </span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">-16</span>;</span><br><span class="line"><span class="number">004117E5</span>  mov         dword ptr [b],<span class="number">0F</span>FFFFFF0h </span><br><span class="line">	a = b / <span class="number">8</span>;</span><br><span class="line"><span class="number">004117</span>EC  mov         eax,dword ptr [b] </span><br><span class="line"><span class="number">004117</span>EF  cdq         <span class="comment">//使用eax的第31位(即符号位填充edx)</span></span><br><span class="line"><span class="number">004117F</span>0  <span class="keyword">and</span>         edx,<span class="number">7</span> </span><br><span class="line"><span class="number">004117F</span>3  add         eax,edx </span><br><span class="line"><span class="number">004117F</span>5  sar         eax,<span class="number">3</span> </span><br><span class="line"><span class="number">004117F</span>8  mov         dword ptr [a],eax </span><br><span class="line">	a = b &gt;&gt; <span class="number">3</span>;</span><br><span class="line"><span class="number">004117F</span>B  mov         eax,dword ptr [b] </span><br><span class="line"><span class="number">004117F</span>E  sar         eax,<span class="number">3</span> </span><br><span class="line"><span class="number">00411801</span>  mov         dword ptr [a],eax </span><br></pre></td></tr></table></figure>
-<p>可以看到，一条除法语句被编译成6条机器指令，而以为指令只有三条。<br>从效率上看，使用移位指令有更高的效率，因为移位指令占用更少的机器周期。<br>从硬件上看，移位对硬件更容易实现，移一位就乘/除2，所以会用移位。</p>
-<h3 id="函数调用过程中，函数参数的入栈顺序，为什么？"><a href="#函数调用过程中，函数参数的入栈顺序，为什么？" class="headerlink" title="函数调用过程中，函数参数的入栈顺序，为什么？"></a>函数调用过程中，函数参数的入栈顺序，为什么？</h3><hr>
-<p>C语言函数参数采用自右向左的入栈顺序，主要原因是为了支持可变长参数形式。<br>C方式参数入栈顺序（从右至左）的好处就是可以动态变化参数个数。<br>通过栈堆分析可知，自左向右的入栈方式，最前面的参数被压在栈底。<br>除非知道参数个数，否则是无法通过栈指针的相对位移求得最左边的参数。<br>这样就变成了左边参数的个数不确定，正好和动态参数个数的方向相反。<br>从右至左则最左边的参数在栈顶</p>
-<h3 id="结构体大小的影响因素"><a href="#结构体大小的影响因素" class="headerlink" title="结构体大小的影响因素"></a>结构体大小的影响因素</h3><hr>
-<ul>
-<li>编译器，编译参数和操作系统位数 –影响基础类型的大小和指针大小</li>
-<li>#pragma pack(1) –伪指令指定的对齐模数</li>
-<li>对齐模数，该模数是【#pragma pack指定的数值】、【未指定#pragma pack时，系统默认的对齐模数（32位系统为4字节，64位为8字节）】和【结构体内部最大的基本数据类型成员】长度中数值较小者，结构体成员不能跨对齐模数的倍数</li>
-</ul>
-<p>各个类型的变量长度由编译器来决定（实际上与操作系统位数和编译器都有关）<br>可用sizeof得到，当前主流编译器一般是32位或64位</p>
-<table>
-<thead>
-<tr>
-<th align="left">类型</th>
-<th align="center">32位</th>
-<th align="left">64位</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">char</td>
-<td align="center">1</td>
-<td align="left">1</td>
-</tr>
-<tr>
-<td align="left">short int</td>
-<td align="center">2</td>
-<td align="left">2</td>
-</tr>
-<tr>
-<td align="left">int</td>
-<td align="center">4</td>
-<td align="left">4</td>
-</tr>
-<tr>
-<td align="left">long int</td>
-<td align="center">4</td>
-<td align="left">8</td>
-</tr>
-<tr>
-<td align="left">long long int</td>
-<td align="center">8</td>
-<td align="left">8</td>
-</tr>
-<tr>
-<td align="left">char*</td>
-<td align="center">4</td>
-<td align="left">8</td>
-</tr>
-<tr>
-<td align="left">float</td>
-<td align="center">4</td>
-<td align="left">4</td>
-</tr>
-<tr>
-<td align="left">double</td>
-<td align="center">8</td>
-<td align="left">8</td>
-</tr>
-</tbody></table>
-<h3 id="结构体对齐包括两个方面的含义"><a href="#结构体对齐包括两个方面的含义" class="headerlink" title="结构体对齐包括两个方面的含义"></a>结构体对齐包括两个方面的含义</h3><hr>
-<ul>
-<li>结构体总长度；</li>
-<li>结构体内各数据成员的内存对齐，即该数据成员相对结构体的起始位置；</li>
-</ul>
-<h3 id="内存对齐的意义"><a href="#内存对齐的意义" class="headerlink" title="内存对齐的意义"></a>内存对齐的意义</h3><hr>
-<p>许多实际的计算机系统对基本类型数据在内存中存放的位置有限制，它们会要求这些数据的起始地址的值是某个数k的倍数，这就是所谓的内存对齐，而这个k则被称为该数据类型的对齐模数(alignment modulus)。这种强制的要求一来简化了处理器与内存之间传输系统的设计，二来可以提升读取数据的速度。<br>结构体对齐主要是为了提高内存的访问效率，比如intel 32位cpu，每个总线周期都是从偶地址开始一次读取4字节的内存数据，假如软件能保证int类型的数据都从4倍数地址开始，那么读或写一个int类型数据就只需要一次内存操作。否则，我们就可能需要两次内存操作才能完成这个动作，因为数据或许恰好横跨在两个符合对齐要求的4字节内存块上，因此需要在内存中存放数据时进行对齐。</p>
-<h3 id="一个伪造的IP能否跟服务端建立TCP连接通信"><a href="#一个伪造的IP能否跟服务端建立TCP连接通信" class="headerlink" title="一个伪造的IP能否跟服务端建立TCP连接通信?"></a>一个伪造的IP能否跟服务端建立TCP连接通信?</h3><hr>
-<p>不可能的，因为TCP是面向连接的协议，每个连接都需要经过三次握手建立连接。<br>client发送syn报文给服务端，服务端响应syn+ack报文，由于IP是伪造的，伪造的IP是接收不到服务端响应的syn+ack报文并返回ack的，也就是说三次握手根本不能正常完成，TCP连接是不可能建立的。本文讲的伪造IP欺骗服务端是基于服务端获取IP的原理，修改http请求头，完成的欺骗。其底层建立TCP通信链路的IP，肯定是真实存在的，要不然没办法进行通信和交互。<br>如果攻击者使用大量伪造IP，发送syn报文给服务器，会导致服务器半连接队列堆满，正常用户无法和服务器建立TCP连接，也就是所谓的syn flood攻击(DDOS攻击中的一种)。</p>
-<h3 id="一个伪造的IP能否跟服务器以UDP协议进行通信"><a href="#一个伪造的IP能否跟服务器以UDP协议进行通信" class="headerlink" title="一个伪造的IP能否跟服务器以UDP协议进行通信"></a>一个伪造的IP能否跟服务器以UDP协议进行通信</h3><hr>
-<p>单向通信，client只能单向的发送数据给服务端，同样由于IP是伪造的，接收不到服务返回的UDP报文。UDP是一个面向非连接的协议，建立通信前不需要经过三次握手建立连接，也没有消息确认ack,超时重传等保障数据安全传输的机制。但是如果大量伪造的IP，发送垃圾数据给服务器，会造成服务瘫痪，影响正常用户使用，也就是所谓的udp flood攻击(DDOS攻击中的一种)。</p>
-<h3 id="简单介绍OSI参考模型"><a href="#简单介绍OSI参考模型" class="headerlink" title="简单介绍OSI参考模型"></a>简单介绍OSI参考模型</h3><hr>
-<p><img src="https://pic.imgdb.cn/item/60af47dd08f74bc159fee68d.png" alt="OSI七层模型"></p>
-<ol>
-<li>应用层<br>OSI参考模型中最靠近用户的一层，是为计算机用户提供应用接口，也为用户直接提供各种网络服务。我们常见应用层的网络服务协议有：HTTP，HTTPS，FTP，POP3、SMTP等。</li>
-<li>表示层<br>表示层提供各种用于应用层数据的编码和转换功能,确保一个系统的应用层发送的数据能被另一个系统的应用层识别。如果必要，该层可提供一种标准表示形式，用于将计算机内部的多种数据格式转换成通信中采用的标准表示形式。数据压缩和加密也是表示层可提供的转换功能之一。</li>
-<li>会话层<br>会话层就是负责建立、管理和终止表示层实体之间的通信会话。该层的通信由不同设备中的应用程序之间的服务请求和响应组成。</li>
-<li>传输层<br>传输层建立了主机端到端的链接，传输层的作用是为上层协议提供端到端的可靠和透明的数据传输服务，包括处理差错控制和流量控制等问题。该层向高层屏蔽了下层数据通信的细节，使高层用户看到的只是在两个传输实体间的一条主机到主机的、可由用户控制和设定的、可靠的数据通路。我们通常说的，TCP UDP就是在这一层。端口号既是这里的“端”。</li>
-<li>网络层<br>本层通过IP寻址来建立两个节点之间的连接，为源端的运输层送来的分组，选择合适的路由和交换节点，正确无误地按照地址传送给目的端的运输层。就是通常说的IP层。这一层就是我们经常说的IP协议层。IP协议是Internet的基础。</li>
-<li>数据链路层<br>将比特组合成字节,再将字节组合成帧,使用链路层地址 (以太网使用MAC地址)来访问介质,并进行差错检测。</li>
-<li>物理层<br>实际最终信号的传输是通过物理层实现的。通过物理介质传输比特流。</li>
-</ol>
-<ul>
-<li>通信特点：对等通信<br>对等通信，为了使数据分组从源传送到目的地，源端OSI模型的每一层都必须与目的端的对等层进行通信，这种通信方式称为对等层通信。在每一层通信过程中，使用本层自己协议进行通信。</li>
-</ul>
-<h3 id="TCP-IP五层协议和OSI的七层协议对应关系"><a href="#TCP-IP五层协议和OSI的七层协议对应关系" class="headerlink" title="TCP/IP五层协议和OSI的七层协议对应关系"></a>TCP/IP五层协议和OSI的七层协议对应关系</h3><hr>
-<p><img src="https://pic.imgdb.cn/item/60af4ee208f74bc159582f82.png"><br><img src="https://pic.imgdb.cn/item/60af4efe08f74bc1595998be.png"></p>
-<h3 id="进程间-线程间共享的资源，通信的方式有哪些？"><a href="#进程间-线程间共享的资源，通信的方式有哪些？" class="headerlink" title="进程间/线程间共享的资源，通信的方式有哪些？"></a>进程间/线程间共享的资源，通信的方式有哪些？</h3><hr>
+  <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>实现 pow(x, n) ，即计算 x 的 n 次幂函数（即，xn）。不得使用库函数，同时不需要考虑大数问题。</p>
+<h3 id="不过脑子的写法"><a href="#不过脑子的写法" class="headerlink" title="不过脑子的写法"></a>不过脑子的写法</h3><p>判断当前数字不等于0时，与1做与运算，如果为1，增加计数；右移；重复这个过程直到数字等于0</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">double</span> <span class="title">myPow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> result = <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;abs_n; i++) &#123;</span><br><span class="line">            result *= x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>未考虑指数为非正数的情况。</p>
+<h3 id="常规解法"><a href="#常规解法" class="headerlink" title="常规解法"></a>常规解法</h3><p>指数为负数时，先求指数的绝对值做幂运算，再用1.0除以结果，注意此时底数为0的情况，除以 0 会导致抛出浮点数异常，这里我们直接返回0。<b>需要注意的是浮点数的比较。</b></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">double</span> <span class="title">myPow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> result = <span class="number">1.0</span>;</span><br><span class="line">		<span class="keyword">if</span> (x&gt;<span class="number">-0.0000001</span> &amp;&amp; x&lt;<span class="number">0.0000001</span>) <span class="keyword">return</span> <span class="number">0.0</span>;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> abs_n = <span class="built_in">abs</span>(n);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;abs_n; i++) &#123;</span><br><span class="line">            result *= x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            result = <span class="number">1.0</span> / result;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="更高效的解法"><a href="#更高效的解法" class="headerlink" title="更高效的解法"></a>更高效的解法</h3><p>上面的for循环次数用指数来指定，即与n线性相关。有下面的公式可以化线性O(N)为O(logN)<br><img src="https://pic.imgdb.cn/item/60b0b91f08f74bc15978d7d1.png"><br>考虑用循环或二者递归来实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 0</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">double</span> <span class="title">myPow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> ans = <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">if</span> (x&gt;<span class="number">-0.0000001</span> &amp;&amp; x&lt;<span class="number">0.0000001</span>) <span class="keyword">return</span> <span class="number">0.0</span>;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> abs_n = <span class="built_in">abs</span>(n);</span><br><span class="line">        <span class="keyword">while</span> (abs_n) &#123;</span><br><span class="line">            <span class="comment">//a^n = (a^2)^(n&gt;&gt;1) [* a //为奇数时];</span></span><br><span class="line">            <span class="keyword">if</span> (abs_n &amp; <span class="number">1</span>)</span><br><span class="line">                ans = ans * x;</span><br><span class="line">            abs_n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">            x *= x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            ans = <span class="number">1.0</span> / ans;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">myExponent</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">double</span> result = myExponent(x, n&gt;&gt;<span class="number">1</span>);</span><br><span class="line">        result *= result;</span><br><span class="line">        <span class="keyword">if</span> (n &amp; <span class="number">1</span>) &#123;</span><br><span class="line">            result *= x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">myPow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> result = <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">if</span> (x&gt;<span class="number">-0.0000001</span> &amp;&amp; x&lt;<span class="number">0.0000001</span>) <span class="keyword">return</span> <span class="number">0.0</span>;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> abs_n = <span class="built_in">abs</span>(n);</span><br><span class="line">        result = myExponent(x, abs_n);</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            result = <span class="number">1.0</span> / result;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p><b>有一个额外情况是，当n为最小的负数 -2147483648 时, 存储abs运算结果的abs_n变量如果定义为int，则仍然为负数，对负数进行移位操作并判断会导致死循环</b></p>
  
       <!-- reward -->
       
@@ -241,12 +161,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://marjosong.github.io/%E4%BA%BA%E7%B1%BB%E4%B8%80%E6%80%9D%E8%80%83%E4%B8%8A%E5%B8%9D%E5%B0%B1%E5%8F%91%E7%AC%91.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://marjosong.github.io/%E5%89%91%E6%8C%87%20Offer%2011.%20%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9.html" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/" rel="tag">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bit/" rel="tag">bit</a></li></ul>
 
     </footer>
   </div>
@@ -254,19 +174,19 @@
    
   <nav class="article-nav">
     
-      <a href="/%E5%89%91%E6%8C%87%20Offer%2010.%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0.html" class="article-nav-link">
+      <a href="/%E5%89%91%E6%8C%87%20Offer%2012.%20%E6%89%93%E5%8D%B0%E4%BB%8E1%E5%88%B0%E6%9C%80%E5%A4%A7%E7%9A%84n%E4%BD%8D%E6%95%B0.html" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            剑指 Offer 10.二进制中1的个数
+            剑指 Offer 12. 打印从1到最大的n位数
           
         </div>
       </a>
     
     
-      <a href="/%E5%89%91%E6%8C%87%20Offer%2003.%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8.html" class="article-nav-link">
+      <a href="/%E5%89%91%E6%8C%87%20Offer%2010.%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">剑指Offer_03.从尾到头打印链表</div>
+        <div class="article-nav-title">剑指 Offer 10.二进制中1的个数</div>
       </a>
     
   </nav>

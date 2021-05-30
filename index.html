@@ -149,6 +149,183 @@
     
     
     <article
+  id="post-剑指 Offer 12. 打印从1到最大的n位数"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/%E5%89%91%E6%8C%87%20Offer%2012.%20%E6%89%93%E5%8D%B0%E4%BB%8E1%E5%88%B0%E6%9C%80%E5%A4%A7%E7%9A%84n%E4%BD%8D%E6%95%B0.html"
+    >剑指 Offer 12. 打印从1到最大的n位数</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/%E5%89%91%E6%8C%87%20Offer%2012.%20%E6%89%93%E5%8D%B0%E4%BB%8E1%E5%88%B0%E6%9C%80%E5%A4%A7%E7%9A%84n%E4%BD%8D%E6%95%B0.html" class="article-date">
+  <time datetime="2021-05-30T13:30:00.000Z" itemprop="datePublished">2021-05-30</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入数字 n，按顺序打印出从 1 到最大的 n 位十进制数。比如输入 3，则打印出 1、2、3 一直到最大的 3 位数 999。</p>
+<h3 id="不过脑子的写法"><a href="#不过脑子的写法" class="headerlink" title="不过脑子的写法"></a>不过脑子的写法</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print1ToMaxOfNDigits</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max_minus_one = <span class="built_in">pow</span>(<span class="number">10</span>, n);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;max_minus_one; i++) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>未考虑大数的情况；<br>未考虑n为非正数的情况。</p>
+<h3 id="常规解法"><a href="#常规解法" class="headerlink" title="常规解法"></a>常规解法</h3><p>使用字符串模拟大数，注意处理进位和上限的判断。如果使用strcmp(number, “99…999”)判断，则其算法复杂度为O(n)。<br>可以检测首位是否产生了进位。<br>值得注意的是字符串打印时应跳过最开始的连续<b>‘0’</b>字符。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">Increment</span><span class="params">(<span class="keyword">char</span> * number, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">bool</span> isOverFlow = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">int</span> isTakeOver = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=n<span class="number">-1</span>; i&gt;=<span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">int</span> nSum = number[i] - <span class="string">&#x27;0&#x27;</span> + isTakeOver;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (i==n<span class="number">-1</span>) nSum++;</span><br><span class="line">            <span class="keyword">if</span> (nSum&gt;=<span class="number">10</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i==<span class="number">0</span>)</span><br><span class="line">                    isOverFlow = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    nSum -= <span class="number">10</span>;</span><br><span class="line">                    number[i] = <span class="string">&#x27;0&#x27;</span> + nSum;</span><br><span class="line">                    isTakeOver = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                number[i] = <span class="string">&#x27;0&#x27;</span> + nSum;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> isOverFlow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printNumber</span><span class="params">(<span class="keyword">char</span> * number)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span> (number[++i]==<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; number+i &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print1ToMaxOfNDigits</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n&lt;=<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">char</span> *number = <span class="keyword">new</span> <span class="keyword">char</span>[n+<span class="number">1</span>];</span><br><span class="line">        <span class="built_in">memset</span>(number, <span class="string">&#x27;0&#x27;</span>, n);</span><br><span class="line">        number[n] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!Increment(number, n)) &#123;</span><br><span class="line">            printNumber(number);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">delete</span> []number;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="考虑用全排列递归来实现"><a href="#考虑用全排列递归来实现" class="headerlink" title="考虑用全排列递归来实现"></a>考虑用全排列递归来实现</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printNumber</span><span class="params">(<span class="keyword">char</span> * number)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span> (number[++i]==<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; number+i &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print1ToNRecursively</span><span class="params">(<span class="keyword">char</span> *number, <span class="keyword">int</span> index, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (index==length) &#123;</span><br><span class="line">            printNumber(number);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;=<span class="number">9</span>; i++) &#123;</span><br><span class="line">            number[index] = i + <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            print1ToNRecursively(number, index+<span class="number">1</span>, length);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print1ToMaxOfNDigits</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n&lt;=<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">char</span> *number = <span class="keyword">new</span> <span class="keyword">char</span>[n+<span class="number">1</span>];</span><br><span class="line">        <span class="built_in">memset</span>(number, <span class="string">&#x27;0&#x27;</span>, n);</span><br><span class="line">        number[n] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        print1ToNRecursively(number, <span class="number">0</span>, <span class="built_in">strlen</span>(number));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/" rel="tag">Algorithm</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-剑指 Offer 11. 数值的整数次方"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/%E5%89%91%E6%8C%87%20Offer%2011.%20%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9.html"
+    >剑指 Offer 11. 数值的整数次方</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/%E5%89%91%E6%8C%87%20Offer%2011.%20%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9.html" class="article-date">
+  <time datetime="2021-05-28T08:30:00.000Z" itemprop="datePublished">2021-05-28</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>实现 pow(x, n) ，即计算 x 的 n 次幂函数（即，xn）。不得使用库函数，同时不需要考虑大数问题。</p>
+<h3 id="不过脑子的写法"><a href="#不过脑子的写法" class="headerlink" title="不过脑子的写法"></a>不过脑子的写法</h3><p>判断当前数字不等于0时，与1做与运算，如果为1，增加计数；右移；重复这个过程直到数字等于0</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">double</span> <span class="title">myPow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> result = <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;abs_n; i++) &#123;</span><br><span class="line">            result *= x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>未考虑指数为非正数的情况。</p>
+<h3 id="常规解法"><a href="#常规解法" class="headerlink" title="常规解法"></a>常规解法</h3><p>指数为负数时，先求指数的绝对值做幂运算，再用1.0除以结果，注意此时底数为0的情况，除以 0 会导致抛出浮点数异常，这里我们直接返回0。<b>需要注意的是浮点数的比较。</b></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">double</span> <span class="title">myPow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> result = <span class="number">1.0</span>;</span><br><span class="line">		<span class="keyword">if</span> (x&gt;<span class="number">-0.0000001</span> &amp;&amp; x&lt;<span class="number">0.0000001</span>) <span class="keyword">return</span> <span class="number">0.0</span>;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> abs_n = <span class="built_in">abs</span>(n);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;abs_n; i++) &#123;</span><br><span class="line">            result *= x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            result = <span class="number">1.0</span> / result;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="更高效的解法"><a href="#更高效的解法" class="headerlink" title="更高效的解法"></a>更高效的解法</h3><p>上面的for循环次数用指数来指定，即与n线性相关。有下面的公式可以化线性O(N)为O(logN)<br><img src="https://pic.imgdb.cn/item/60b0b91f08f74bc15978d7d1.png"><br>考虑用循环或二者递归来实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 0</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">double</span> <span class="title">myPow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> ans = <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">if</span> (x&gt;<span class="number">-0.0000001</span> &amp;&amp; x&lt;<span class="number">0.0000001</span>) <span class="keyword">return</span> <span class="number">0.0</span>;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> abs_n = <span class="built_in">abs</span>(n);</span><br><span class="line">        <span class="keyword">while</span> (abs_n) &#123;</span><br><span class="line">            <span class="comment">//a^n = (a^2)^(n&gt;&gt;1) [* a //为奇数时];</span></span><br><span class="line">            <span class="keyword">if</span> (abs_n &amp; <span class="number">1</span>)</span><br><span class="line">                ans = ans * x;</span><br><span class="line">            abs_n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">            x *= x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            ans = <span class="number">1.0</span> / ans;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">myExponent</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">double</span> result = myExponent(x, n&gt;&gt;<span class="number">1</span>);</span><br><span class="line">        result *= result;</span><br><span class="line">        <span class="keyword">if</span> (n &amp; <span class="number">1</span>) &#123;</span><br><span class="line">            result *= x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">myPow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> result = <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">if</span> (x&gt;<span class="number">-0.0000001</span> &amp;&amp; x&lt;<span class="number">0.0000001</span>) <span class="keyword">return</span> <span class="number">0.0</span>;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> abs_n = <span class="built_in">abs</span>(n);</span><br><span class="line">        result = myExponent(x, abs_n);</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            result = <span class="number">1.0</span> / result;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p><b>有一个额外情况是，当n为最小的负数 -2147483648 时, 存储abs运算结果的abs_n变量如果定义为int，则仍然为负数，对负数进行移位操作并判断会导致死循环</b></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/" rel="tag">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bit/" rel="tag">bit</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-剑指 Offer 10.二进制中1的个数"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/%E5%89%91%E6%8C%87%20Offer%2010.%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0.html"
+    >剑指 Offer 10.二进制中1的个数</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/%E5%89%91%E6%8C%87%20Offer%2010.%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0.html" class="article-date">
+  <time datetime="2021-05-28T03:30:00.000Z" itemprop="datePublished">2021-05-28</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>请实现一个函数，输入一个整数（以二进制串形式），输出该数二进制表示中 1 的个数。<br>例如，把 9 表示成二进制是 1001，有 2 位是 1。因此，如果输入 9，则该函数输出 2。</p>
+<h3 id="可能引起死循环的解法"><a href="#可能引起死循环的解法" class="headerlink" title="可能引起死循环的解法"></a>可能引起死循环的解法</h3><p>判断当前数字不等于0时，与1做与运算，如果为1，增加计数；右移；重复这个过程直到数字等于0</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hammingWeight</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (n) &#123;</span><br><span class="line">            <span class="keyword">if</span> (n%<span class="number">2</span>)</span><br><span class="line">                count++;</span><br><span class="line">            n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>如果输入为负数，符号位1右移一位，同时符号位仍会设为1，最终会变成0xFFFFFFFF而陷入死循环。</p>
+<h3 id="常规解法"><a href="#常规解法" class="headerlink" title="常规解法"></a>常规解法</h3><p>依次与2的0次方，2的1次方直到2的31次方做与运算，在与运算的结果为大于0的时候增加计数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hammingWeight</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> flag = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (flag) &#123;</span><br><span class="line">            <span class="keyword">if</span> (n &amp; flag)</span><br><span class="line">                count++;</span><br><span class="line">            flag &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="让人眼前一亮的解法"><a href="#让人眼前一亮的解法" class="headerlink" title="让人眼前一亮的解法"></a>让人眼前一亮的解法</h3><p>上面的解法总是要完成32循环。考虑一个二进制数表示为1100，如果这个数减去1，变成1011，即这个数减1后，对比<b>1100, 1011</b>原先的末位1变成0，末尾1后面的0全部变成了1，我们再将两数相与，就可以完成<b>消除原来数字的末尾1</b>操作，关于计数部分，再减一之前判断是否不等于0即可，这个循环的次数由二进制中1的数量决定。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hammingWeight</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (n) &#123;</span><br><span class="line">            count++;</span><br><span class="line">            n &amp;= n<span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="延伸-一条语句判断一个整数是不是2的整数次方"><a href="#延伸-一条语句判断一个整数是不是2的整数次方" class="headerlink" title="延伸: 一条语句判断一个整数是不是2的整数次方"></a>延伸: 一条语句判断一个整数是不是2的整数次方</h3><p>这个数满足二进制有且只有1位为1的条件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (n&amp;n<span class="number">-1</span>==<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="延伸-给定两个数m，n，问改变n二进制中的多少个位值，能使n等于m"><a href="#延伸-给定两个数m，n，问改变n二进制中的多少个位值，能使n等于m" class="headerlink" title="延伸: 给定两个数m，n，问改变n二进制中的多少个位值，能使n等于m"></a>延伸: 给定两个数m，n，问改变n二进制中的多少个位值，能使n等于m</h3><p>先求异或结果s，再求s里二进制为1的个数</p>
+<h3 id="举一反三"><a href="#举一反三" class="headerlink" title="举一反三"></a>举一反三</h3><blockquote>
+<p>把一个整数减去 1 之后再和原来的整数做位与运算，得到的结果相当于是把整数的二进制表示中的末位1变成0。很多二进制问题都可以应用这种思路。</p>
+</blockquote>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/" rel="tag">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bit/" rel="tag">bit</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-人类一思考上帝就发笑"
   class="article article-type-post"
   itemscope
@@ -187,7 +364,56 @@
 <li>#pragma pack(1) –伪指令指定的对齐模数</li>
 <li>对齐模数，该模数是【#pragma pack指定的数值】、【未指定#pragma pack时，系统默认的对齐模数（32位系统为4字节，64位为8字节）】和【结构体内部最大的基本数据类型成员】长度中数值较小者，结构体成员不能跨对齐模数的倍数</li>
 </ul>
-<p>各个类型的变量长度由编译器来决定（实际上与操作系统位数和编译器都有关）<br>可用sizeof得到，当前主流编译器一般是32位或64位<br>|类型|32位|64位|<br>| —— | —— | —— |<br>|char|1|1|<br>|short int|2|2|<br>|int|4|4|<br>|long int |4|8|<br>|long long int|8|8|<br>|char*| 4|8|<br>|float| 4|4|<br>|double |8|8|</p>
+<p>各个类型的变量长度由编译器来决定（实际上与操作系统位数和编译器都有关）<br>可用sizeof得到，当前主流编译器一般是32位或64位</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="center">32位</th>
+<th align="left">64位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">char</td>
+<td align="center">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">short int</td>
+<td align="center">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">int</td>
+<td align="center">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">long int</td>
+<td align="center">4</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">long long int</td>
+<td align="center">8</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">char*</td>
+<td align="center">4</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">float</td>
+<td align="center">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">double</td>
+<td align="center">8</td>
+<td align="left">8</td>
+</tr>
+</tbody></table>
 <h3 id="结构体对齐包括两个方面的含义"><a href="#结构体对齐包括两个方面的含义" class="headerlink" title="结构体对齐包括两个方面的含义"></a>结构体对齐包括两个方面的含义</h3><hr>
 <ul>
 <li>结构体总长度；</li>
@@ -195,6 +421,27 @@
 </ul>
 <h3 id="内存对齐的意义"><a href="#内存对齐的意义" class="headerlink" title="内存对齐的意义"></a>内存对齐的意义</h3><hr>
 <p>许多实际的计算机系统对基本类型数据在内存中存放的位置有限制，它们会要求这些数据的起始地址的值是某个数k的倍数，这就是所谓的内存对齐，而这个k则被称为该数据类型的对齐模数(alignment modulus)。这种强制的要求一来简化了处理器与内存之间传输系统的设计，二来可以提升读取数据的速度。<br>结构体对齐主要是为了提高内存的访问效率，比如intel 32位cpu，每个总线周期都是从偶地址开始一次读取4字节的内存数据，假如软件能保证int类型的数据都从4倍数地址开始，那么读或写一个int类型数据就只需要一次内存操作。否则，我们就可能需要两次内存操作才能完成这个动作，因为数据或许恰好横跨在两个符合对齐要求的4字节内存块上，因此需要在内存中存放数据时进行对齐。</p>
+<h3 id="一个伪造的IP能否跟服务端建立TCP连接通信"><a href="#一个伪造的IP能否跟服务端建立TCP连接通信" class="headerlink" title="一个伪造的IP能否跟服务端建立TCP连接通信?"></a>一个伪造的IP能否跟服务端建立TCP连接通信?</h3><hr>
+<p>不可能的，因为TCP是面向连接的协议，每个连接都需要经过三次握手建立连接。<br>client发送syn报文给服务端，服务端响应syn+ack报文，由于IP是伪造的，伪造的IP是接收不到服务端响应的syn+ack报文并返回ack的，也就是说三次握手根本不能正常完成，TCP连接是不可能建立的。本文讲的伪造IP欺骗服务端是基于服务端获取IP的原理，修改http请求头，完成的欺骗。其底层建立TCP通信链路的IP，肯定是真实存在的，要不然没办法进行通信和交互。<br>如果攻击者使用大量伪造IP，发送syn报文给服务器，会导致服务器半连接队列堆满，正常用户无法和服务器建立TCP连接，也就是所谓的syn flood攻击(DDOS攻击中的一种)。</p>
+<h3 id="一个伪造的IP能否跟服务器以UDP协议进行通信"><a href="#一个伪造的IP能否跟服务器以UDP协议进行通信" class="headerlink" title="一个伪造的IP能否跟服务器以UDP协议进行通信"></a>一个伪造的IP能否跟服务器以UDP协议进行通信</h3><hr>
+<p>单向通信，client只能单向的发送数据给服务端，同样由于IP是伪造的，接收不到服务返回的UDP报文。UDP是一个面向非连接的协议，建立通信前不需要经过三次握手建立连接，也没有消息确认ack,超时重传等保障数据安全传输的机制。但是如果大量伪造的IP，发送垃圾数据给服务器，会造成服务瘫痪，影响正常用户使用，也就是所谓的udp flood攻击(DDOS攻击中的一种)。</p>
+<h3 id="简单介绍OSI参考模型"><a href="#简单介绍OSI参考模型" class="headerlink" title="简单介绍OSI参考模型"></a>简单介绍OSI参考模型</h3><hr>
+<p><img src="https://pic.imgdb.cn/item/60af47dd08f74bc159fee68d.png" alt="OSI七层模型"></p>
+<ol>
+<li>应用层<br>OSI参考模型中最靠近用户的一层，是为计算机用户提供应用接口，也为用户直接提供各种网络服务。我们常见应用层的网络服务协议有：HTTP，HTTPS，FTP，POP3、SMTP等。</li>
+<li>表示层<br>表示层提供各种用于应用层数据的编码和转换功能,确保一个系统的应用层发送的数据能被另一个系统的应用层识别。如果必要，该层可提供一种标准表示形式，用于将计算机内部的多种数据格式转换成通信中采用的标准表示形式。数据压缩和加密也是表示层可提供的转换功能之一。</li>
+<li>会话层<br>会话层就是负责建立、管理和终止表示层实体之间的通信会话。该层的通信由不同设备中的应用程序之间的服务请求和响应组成。</li>
+<li>传输层<br>传输层建立了主机端到端的链接，传输层的作用是为上层协议提供端到端的可靠和透明的数据传输服务，包括处理差错控制和流量控制等问题。该层向高层屏蔽了下层数据通信的细节，使高层用户看到的只是在两个传输实体间的一条主机到主机的、可由用户控制和设定的、可靠的数据通路。我们通常说的，TCP UDP就是在这一层。端口号既是这里的“端”。</li>
+<li>网络层<br>本层通过IP寻址来建立两个节点之间的连接，为源端的运输层送来的分组，选择合适的路由和交换节点，正确无误地按照地址传送给目的端的运输层。就是通常说的IP层。这一层就是我们经常说的IP协议层。IP协议是Internet的基础。</li>
+<li>数据链路层<br>将比特组合成字节,再将字节组合成帧,使用链路层地址 (以太网使用MAC地址)来访问介质,并进行差错检测。</li>
+<li>物理层<br>实际最终信号的传输是通过物理层实现的。通过物理介质传输比特流。</li>
+</ol>
+<ul>
+<li>通信特点：对等通信<br>对等通信，为了使数据分组从源传送到目的地，源端OSI模型的每一层都必须与目的端的对等层进行通信，这种通信方式称为对等层通信。在每一层通信过程中，使用本层自己协议进行通信。</li>
+</ul>
+<h3 id="TCP-IP五层协议和OSI的七层协议对应关系"><a href="#TCP-IP五层协议和OSI的七层协议对应关系" class="headerlink" title="TCP/IP五层协议和OSI的七层协议对应关系"></a>TCP/IP五层协议和OSI的七层协议对应关系</h3><hr>
+<p><img src="https://pic.imgdb.cn/item/60af4ee208f74bc159582f82.png"><br><img src="https://pic.imgdb.cn/item/60af4efe08f74bc1595998be.png"></p>
+<h3 id="进程间-线程间共享的资源，通信的方式有哪些？"><a href="#进程间-线程间共享的资源，通信的方式有哪些？" class="headerlink" title="进程间/线程间共享的资源，通信的方式有哪些？"></a>进程间/线程间共享的资源，通信的方式有哪些？</h3><hr>
  
       <!-- reward -->
       
@@ -217,7 +464,7 @@
 
     
     <article
-  id="post-剑指Offer-03-从尾到头打印链表"
+  id="post-剑指 Offer 03.从尾到头打印链表"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -228,7 +475,7 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/%E5%89%91%E6%8C%87Offer-03-%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8.html"
+  <a class="article-title" href="/%E5%89%91%E6%8C%87%20Offer%2003.%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8.html"
     >剑指Offer_03.从尾到头打印链表</a> 
 </h2>
  
@@ -236,18 +483,27 @@
     </header>
      
     <div class="article-meta">
-      <a href="/%E5%89%91%E6%8C%87Offer-03-%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8.html" class="article-date">
+      <a href="/%E5%89%91%E6%8C%87%20Offer%2003.%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8.html" class="article-date">
   <time datetime="2021-05-05T15:10:05.000Z" itemprop="datePublished">2021-05-05</time>
 </a>    
     </div>
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="从尾到头打印链表"><a href="#从尾到头打印链表" class="headerlink" title="从尾到头打印链表"></a>从尾到头打印链表</h2> 
-      <a class="article-more-link" href="/%E5%89%91%E6%8C%87Offer-03-%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8.html"
-        >阅读更多...</a
-      >
-       
+  <a id="more"></a>
+<h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入一个链表，按链表从尾到头的顺序返回一个ArrayList<br>链表结构如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">*  struct ListNode &#123;</span><br><span class="line">*        int val;</span><br><span class="line">*        struct ListNode *next;</span><br><span class="line">*        ListNode(int x) :</span><br><span class="line">*              val(x), next(NULL) &#123;</span><br><span class="line">*        &#125;</span><br><span class="line">*  &#125;;</span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="方法一：先入栈，再出栈"><a href="#方法一：先入栈，再出栈" class="headerlink" title="方法一：先入栈，再出栈"></a>方法一：先入栈，再出栈</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">printListFromTailToHead</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vt;</span><br><span class="line">        <span class="comment">//遍历链表，将链表节点压栈</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">NULL</span> != head) &#123;</span><br><span class="line">            st.push(head-&gt;val);</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//出栈并压入向量容器</span></span><br><span class="line">        <span class="keyword">while</span> (!st.empty()) &#123;</span><br><span class="line">            vt.push_back(st.top());</span><br><span class="line">            st.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> vt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法二：使用std-reverse-函数"><a href="#方法二：使用std-reverse-函数" class="headerlink" title="方法二：使用std::reverse()函数"></a>方法二：使用std::reverse()函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">printListFromTailToHead</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vt;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">NULL</span> != head) &#123;</span><br><span class="line">            vt.push_back(head-&gt;val);</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">std</span>::reverse(vt.begin(), vt.end());</span><br><span class="line">        <span class="keyword">return</span> vt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法三：使用递归"><a href="#方法三：使用递归" class="headerlink" title="方法三：使用递归"></a>方法三：使用递归</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">printListFromTailToHead</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vt;</span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">NULL</span> != head) &#123;</span><br><span class="line">            vt = printListFromTailToHead(head-&gt;next);</span><br><span class="line">            vt.push_back(head-&gt;val);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> vt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法四：反转链表"><a href="#方法四：反转链表" class="headerlink" title="方法四：反转链表"></a>方法四：反转链表</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">printListFromTailToHead</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* pre = <span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* cur = head;</span><br><span class="line">        ListNode* tmp = head;</span><br><span class="line">        <span class="comment">//cur为空是说明链表到头了，第一个元素为pre</span></span><br><span class="line">        <span class="keyword">while</span> (cur) &#123;</span><br><span class="line">            tmp = cur-&gt;next;</span><br><span class="line">            cur-&gt;next = pre;</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vt;</span><br><span class="line">        <span class="keyword">while</span> (pre) &#123;</span><br><span class="line">            vt.push_back(pre-&gt;val);</span><br><span class="line">            pre = pre-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> vt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+ 
       <!-- reward -->
       
     </div>
@@ -528,175 +784,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-SSH登录二三事"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/SSH%E7%99%BB%E5%BD%95%E4%BA%8C%E4%B8%89%E4%BA%8B.html"
-    >SSH密钥登录二三事</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/SSH%E7%99%BB%E5%BD%95%E4%BA%8C%E4%B8%89%E4%BA%8B.html" class="article-date">
-  <time datetime="2020-10-23T09:17:04.000Z" itemprop="datePublished">2020-10-23</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>在日常使用中，除了密码登录更多的是使用密钥方式登录SSH。密钥对分成公钥和私钥，将公钥添加到需要登录的服务器用户的家目录下.ssh/authorized_keys文件中，在ssh登录时使用’-i’参数指定私钥 或 将私钥天骄到Xshell用户密钥中。</p>
-<p>使用密钥登录通常需要经过以下步骤：</br></p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> 客户端软件：Xshell 6</br></li>
-<li><input checked="" disabled="" type="checkbox"> 客户端终端：Linux company 4.4.0-18362-Microsoft</br></li>
-<li><input checked="" disabled="" type="checkbox"> 服务端版本：OpenSSH_7.9p1 Raspbian-10+deb10u2, OpenSSL 1.1.1d  10 Sep 2019</li>
-</ul>
-<h3 id="生成登录密钥对"><a href="#生成登录密钥对" class="headerlink" title="生成登录密钥对"></a>生成登录密钥对</h3><ul>
-<li>方法一：使用ssh-keygen命令生成密钥对</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t 加密方式 -C 备注</span><br></pre></td></tr></table></figure> 
-      <a class="article-more-link" href="/SSH%E7%99%BB%E5%BD%95%E4%BA%8C%E4%B8%89%E4%BA%8B.html"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-C测试框架"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/C%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6.html"
-    >C测试框架</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/C%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6.html" class="article-date">
-  <time datetime="2020-10-19T09:06:12.000Z" itemprop="datePublished">2020-10-19</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>cmake:     3.13.4<br>g++:       8.3.0 (Raspbian 8.3.0-6+rpi1)<br>CXX_STD:c++11</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:code $ mkdir testFrame &amp;&amp; git <span class="built_in">clone</span> https://github.com/google/googletest.git</span><br><span class="line">pi@raspberrypi:code $ <span class="built_in">cd</span> googletest &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">pi@raspberrypi:build $ cmake ../	<span class="comment">#省略cmake输出</span></span><br><span class="line">pi@raspberrypi:build $ make		<span class="comment">#略make输出，如有报错，尝试在CMakelist.txt增加SET(CMAKE_CXX_FLAGS &quot;-std=c++0x&quot;)</span></span><br><span class="line">pi@raspberrypi:build $ cp lib ../../testFrame/ -r</span><br><span class="line">pi@raspberrypi:build $ cp ../googletest/include/ ../../testFrame/ -r</span><br><span class="line">pi@raspberrypi:build $ <span class="built_in">cd</span> ../../testFrame/</span><br><span class="line">pi@raspberrypi:testFrame $ vim main.cpp	<span class="comment">#main.cpp源码单独放在一个代码块里</span></span><br><span class="line">pi@raspberrypi:testFrame $ g++ -I./include -L./lib -o main main.cpp -lgtest -lpthread</span><br><span class="line">pi@raspberrypi:testFrame $ ./main </span><br><span class="line">hello world</span><br><span class="line">add(3, 4) = 7</span><br><span class="line">[==========] Running 2 tests from 1 <span class="built_in">test</span> suite.</span><br><span class="line">[----------] Global <span class="built_in">test</span> environment set-up.</span><br><span class="line">[----------] 2 tests from <span class="built_in">test</span></span><br><span class="line">[ RUN      ] test.add1</span><br><span class="line">[       OK ] test.add1 (0 ms)</span><br><span class="line">[ RUN      ] test.add2</span><br><span class="line">main.cpp:21: Failure</span><br><span class="line">Expected equality of these values:</span><br><span class="line">  add(3, 4)</span><br><span class="line">    Which is: 7</span><br><span class="line">  6</span><br><span class="line">[  FAILED  ] test.add2 (0 ms)</span><br><span class="line">[----------] 2 tests from <span class="built_in">test</span> (0 ms total)</span><br><span class="line"></span><br><span class="line">[----------] Global <span class="built_in">test</span> environment tear-down</span><br><span class="line">[==========] 2 tests from 1 <span class="built_in">test</span> suite ran. (1 ms total)</span><br><span class="line">[  PASSED  ] 1 <span class="built_in">test</span>.</span><br><span class="line">[  FAILED  ] 1 <span class="built_in">test</span>, listed below:</span><br><span class="line">[  FAILED  ] test.add2</span><br><span class="line"></span><br><span class="line"> 1 FAILED TEST</span><br><span class="line"></span><br><span class="line">IMPORTANT NOTICE - DO NOT IGNORE:</span><br><span class="line">This <span class="built_in">test</span> program did NOT call testing::InitGoogleTest() before calling RUN_ALL_TESTS(). This is INVALID. Soon Google Test will start to enforce the valid usage. Please fix it ASAP, or IT WILL START TO FAIL.</span><br></pre></td></tr></table></figure>
-<p>tttttt</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;gtest/gtest.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TEST(test, add1) &#123;</span><br><span class="line">	EXPECT_EQ(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">	EXPECT_NE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_LT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">8</span>);</span><br><span class="line">	EXPECT_LE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">	EXPECT_GT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_GE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TEST(test, add2) &#123;</span><br><span class="line">	EXPECT_EQ(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_NE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_LT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">8</span>);</span><br><span class="line">	EXPECT_LE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">	EXPECT_GT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_GE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;add(3, 4) = &quot;</span> &lt;&lt; add(<span class="number">3</span>, <span class="number">4</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> RUN_ALL_TESTS();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
-      <a class="article-more-link" href="/C%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6.html"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gtest/" rel="tag">gtest</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-QtVS开发环境配置篇"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/QtVS%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E7%AF%87.html"
-    >QtVS开发环境配置篇</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/QtVS%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E7%AF%87.html" class="article-date">
-  <time datetime="2020-10-08T14:45:29.000Z" itemprop="datePublished">2020-10-08</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="1-Visual-studio-2019-的安装"><a href="#1-Visual-studio-2019-的安装" class="headerlink" title="1. Visual studio 2019 的安装"></a>1. Visual studio 2019 的安装</h1><p>a) 点此<a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/vs/">地址</a>进入 Visual Studio 官网，下载 Community 2019 版(实际下载的为安装器)<br><img src="https://pic.downk.cc/item/5f752469160a154a67f65681.jpg" alt="vs2019社区版"></p> 
-      <a class="article-more-link" href="/QtVS%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E7%AF%87.html"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VS/" rel="tag">VS</a></li></ul>
 
     </footer>
   </div>

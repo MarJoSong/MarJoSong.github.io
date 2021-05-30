@@ -149,6 +149,175 @@
     
     
     <article
+  id="post-SSH登录二三事"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/SSH%E7%99%BB%E5%BD%95%E4%BA%8C%E4%B8%89%E4%BA%8B.html"
+    >SSH密钥登录二三事</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/SSH%E7%99%BB%E5%BD%95%E4%BA%8C%E4%B8%89%E4%BA%8B.html" class="article-date">
+  <time datetime="2020-10-23T09:17:04.000Z" itemprop="datePublished">2020-10-23</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>在日常使用中，除了密码登录更多的是使用密钥方式登录SSH。密钥对分成公钥和私钥，将公钥添加到需要登录的服务器用户的家目录下.ssh/authorized_keys文件中，在ssh登录时使用’-i’参数指定私钥 或 将私钥天骄到Xshell用户密钥中。</p>
+<p>使用密钥登录通常需要经过以下步骤：</br></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 客户端软件：Xshell 6</br></li>
+<li><input checked="" disabled="" type="checkbox"> 客户端终端：Linux company 4.4.0-18362-Microsoft</br></li>
+<li><input checked="" disabled="" type="checkbox"> 服务端版本：OpenSSH_7.9p1 Raspbian-10+deb10u2, OpenSSL 1.1.1d  10 Sep 2019</li>
+</ul>
+<h3 id="生成登录密钥对"><a href="#生成登录密钥对" class="headerlink" title="生成登录密钥对"></a>生成登录密钥对</h3><ul>
+<li>方法一：使用ssh-keygen命令生成密钥对</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t 加密方式 -C 备注</span><br></pre></td></tr></table></figure> 
+      <a class="article-more-link" href="/SSH%E7%99%BB%E5%BD%95%E4%BA%8C%E4%B8%89%E4%BA%8B.html"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-C测试框架"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/C%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6.html"
+    >C测试框架</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/C%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6.html" class="article-date">
+  <time datetime="2020-10-19T09:06:12.000Z" itemprop="datePublished">2020-10-19</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>cmake:     3.13.4<br>g++:       8.3.0 (Raspbian 8.3.0-6+rpi1)<br>CXX_STD:c++11</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:code $ mkdir testFrame &amp;&amp; git <span class="built_in">clone</span> https://github.com/google/googletest.git</span><br><span class="line">pi@raspberrypi:code $ <span class="built_in">cd</span> googletest &amp;&amp; mkdir build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">pi@raspberrypi:build $ cmake ../	<span class="comment">#省略cmake输出</span></span><br><span class="line">pi@raspberrypi:build $ make		<span class="comment">#略make输出，如有报错，尝试在CMakelist.txt增加SET(CMAKE_CXX_FLAGS &quot;-std=c++0x&quot;)</span></span><br><span class="line">pi@raspberrypi:build $ cp lib ../../testFrame/ -r</span><br><span class="line">pi@raspberrypi:build $ cp ../googletest/include/ ../../testFrame/ -r</span><br><span class="line">pi@raspberrypi:build $ <span class="built_in">cd</span> ../../testFrame/</span><br><span class="line">pi@raspberrypi:testFrame $ vim main.cpp	<span class="comment">#main.cpp源码单独放在一个代码块里</span></span><br><span class="line">pi@raspberrypi:testFrame $ g++ -I./include -L./lib -o main main.cpp -lgtest -lpthread</span><br><span class="line">pi@raspberrypi:testFrame $ ./main </span><br><span class="line">hello world</span><br><span class="line">add(3, 4) = 7</span><br><span class="line">[==========] Running 2 tests from 1 <span class="built_in">test</span> suite.</span><br><span class="line">[----------] Global <span class="built_in">test</span> environment set-up.</span><br><span class="line">[----------] 2 tests from <span class="built_in">test</span></span><br><span class="line">[ RUN      ] test.add1</span><br><span class="line">[       OK ] test.add1 (0 ms)</span><br><span class="line">[ RUN      ] test.add2</span><br><span class="line">main.cpp:21: Failure</span><br><span class="line">Expected equality of these values:</span><br><span class="line">  add(3, 4)</span><br><span class="line">    Which is: 7</span><br><span class="line">  6</span><br><span class="line">[  FAILED  ] test.add2 (0 ms)</span><br><span class="line">[----------] 2 tests from <span class="built_in">test</span> (0 ms total)</span><br><span class="line"></span><br><span class="line">[----------] Global <span class="built_in">test</span> environment tear-down</span><br><span class="line">[==========] 2 tests from 1 <span class="built_in">test</span> suite ran. (1 ms total)</span><br><span class="line">[  PASSED  ] 1 <span class="built_in">test</span>.</span><br><span class="line">[  FAILED  ] 1 <span class="built_in">test</span>, listed below:</span><br><span class="line">[  FAILED  ] test.add2</span><br><span class="line"></span><br><span class="line"> 1 FAILED TEST</span><br><span class="line"></span><br><span class="line">IMPORTANT NOTICE - DO NOT IGNORE:</span><br><span class="line">This <span class="built_in">test</span> program did NOT call testing::InitGoogleTest() before calling RUN_ALL_TESTS(). This is INVALID. Soon Google Test will start to enforce the valid usage. Please fix it ASAP, or IT WILL START TO FAIL.</span><br></pre></td></tr></table></figure>
+<p>tttttt</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;gtest/gtest.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TEST(test, add1) &#123;</span><br><span class="line">	EXPECT_EQ(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">	EXPECT_NE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_LT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">8</span>);</span><br><span class="line">	EXPECT_LE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">	EXPECT_GT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_GE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TEST(test, add2) &#123;</span><br><span class="line">	EXPECT_EQ(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_NE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_LT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">8</span>);</span><br><span class="line">	EXPECT_LE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">	EXPECT_GT(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">6</span>);</span><br><span class="line">	EXPECT_GE(add(<span class="number">3</span>, <span class="number">4</span>), <span class="number">7</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;add(3, 4) = &quot;</span> &lt;&lt; add(<span class="number">3</span>, <span class="number">4</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> RUN_ALL_TESTS();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
+      <a class="article-more-link" href="/C%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6.html"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gtest/" rel="tag">gtest</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-QtVS开发环境配置篇"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/QtVS%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E7%AF%87.html"
+    >QtVS开发环境配置篇</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/QtVS%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E7%AF%87.html" class="article-date">
+  <time datetime="2020-10-08T14:45:29.000Z" itemprop="datePublished">2020-10-08</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="1-Visual-studio-2019-的安装"><a href="#1-Visual-studio-2019-的安装" class="headerlink" title="1. Visual studio 2019 的安装"></a>1. Visual studio 2019 的安装</h1><p>a) 点此<a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/vs/">地址</a>进入 Visual Studio 官网，下载 Community 2019 版(实际下载的为安装器)<br><img src="https://pic.downk.cc/item/5f752469160a154a67f65681.jpg" alt="vs2019社区版"></p> 
+      <a class="article-more-link" href="/QtVS%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E7%AF%87.html"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VS/" rel="tag">VS</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-GCC编译过程"
   class="article article-type-post"
   itemscope
