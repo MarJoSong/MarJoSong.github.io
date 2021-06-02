@@ -149,6 +149,58 @@
     
     
     <article
+  id="post-CMake编写规则"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/CMake%E7%BC%96%E5%86%99%E8%A7%84%E5%88%99.html"
+    >CMake编写规则</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/CMake%E7%BC%96%E5%86%99%E8%A7%84%E5%88%99.html" class="article-date">
+  <time datetime="2020-11-02T07:15:13.000Z" itemprop="datePublished">2020-11-02</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 id="cmake预定义变量"><a href="#cmake预定义变量" class="headerlink" title="cmake预定义变量"></a>cmake预定义变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PROJECT_NAME #通过PROJECt指令定义的项目名称</span><br><span class="line"></span><br><span class="line">PROJECT_SOURCE_DIR #cmake命令后紧跟的目录, 一般是工程的根目录</span><br><span class="line"></span><br><span class="line">PROJECT_BINARY_DIR #执行cmake命令的目录, 通常是$&#123;PROJECT_SOURCE_DIR&#125;&#x2F;build</span><br></pre></td></tr></table></figure>
+
+<h3 id="cmake语法"><a href="#cmake语法" class="headerlink" title="cmake语法"></a>cmake语法</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设置cmake版本</span></span><br><span class="line">cmake_minimum_required(VERSION 3.16)</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置工程名称</span></span><br><span class="line">project(hello_world)  </span><br><span class="line"></span><br><span class="line"><span class="comment">#添加头文件路径, 对应gcc -I和添加到环境变量CPLUS_INCLUDE_PATH</span></span><br><span class="line">include_directories($&#123;PROJECT_SOURCE_DIR&#125;/<span class="keyword">include</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#添加链接库路径, 对应gcc -L和添加到环境变量LD_LIBRARY_PATH</span></span><br><span class="line">link_directories($&#123;PROJECT_SOURCE_DIR&#125;/lib)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查找当前目录下的所有源文件</span></span><br><span class="line"><span class="comment"># 并将名称保存到 DIR_SRCS 变量</span></span><br><span class="line">aux_source_directory(. DIR_SRCS)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加 module 子目录, 此目录下也应当存在一个CMakeLists.txt文件</span></span><br><span class="line">add_subdirectory(module)</span><br><span class="line"></span><br><span class="line"><span class="comment">#添加预处理宏定义</span></span><br><span class="line">add_definitions(-DDEBUG)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加头文件路径</span></span><br><span class="line"><span class="comment">#添加编译器检测支持</span></span><br><span class="line"><span class="keyword">include</span>(CheckCXXCompilerFlag)</span><br><span class="line"><span class="comment">#检查C11标准支持, 结果放到变量COMPILER_SUPPORTS_CXX11里</span></span><br><span class="line">CHECK_CXX_COMPILER_FLAG(<span class="string">&quot;-std=c++11&quot;</span> COMPILER_SUPPORTS_CXX11)</span><br><span class="line">if(COMPILER_SUPPORTS_CXX11)</span><br><span class="line"><span class="comment">#添加c++11编译选项</span></span><br><span class="line">    add_compile_options(-std=c++11) </span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">#添加编译选项</span></span><br><span class="line">add_compile_options(-g -Wall  -Werror) </span><br><span class="line"></span><br><span class="line"><span class="comment">#动态库的添加</span></span><br><span class="line">link_directories($&#123;PROJECT_SOURCE_DIR&#125;/lib) <span class="comment">#添加动态连接库的路径</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置可执行文件的输出目录</span></span><br><span class="line">SET(EXECUTABLE_OUTPUT_PATH $&#123;PROJECT_SOURCE_DIR&#125;/../bin)</span><br><span class="line"></span><br><span class="line"><span class="comment">#编译为执行文件 (源文件 依赖文件...)</span></span><br><span class="line">add_executable(hello $&#123;DIR_SRCS&#125;)</span><br><span class="line">target_link_libraries(hello -lmodule) <span class="comment">#添加libmodule.so</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#module子目录下的CMakeLists.txt</span></span><br><span class="line"><span class="comment"># 查找当前目录下的所有源文件</span></span><br><span class="line"><span class="comment"># 并将名称保存到 DIR_LIB_SRCS 变量</span></span><br><span class="line">aux_source_directory(. DIR_LIB_SRCS)</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置库文件的输出目录</span></span><br><span class="line">SET(LIBRARY_OUTPUT_PATH $&#123;PROJECT_SOURCE_DIR&#125;/../lib) </span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成动态链接库</span></span><br><span class="line">add_library(module share $&#123;DIR_LIB_SRCS&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成静态链接库</span></span><br><span class="line">add_library(module staitc $&#123;DIR_LIB_SRCS&#125;)</span><br></pre></td></tr></table></figure>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cmake/" rel="tag">cmake</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-Git基本操作指北"
   class="article article-type-post"
   itemscope

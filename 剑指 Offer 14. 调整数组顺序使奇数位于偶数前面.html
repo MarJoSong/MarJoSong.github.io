@@ -10,7 +10,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    剑指 Offer 13. 删除链表的节点 |  
+    剑指 Offer 14. 调整数组顺序使奇数位于偶数前面 |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -49,7 +49,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-剑指 Offer 13. 删除链表的节点"
+  id="post-剑指 Offer 14. 调整数组顺序使奇数位于偶数前面"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -60,22 +60,22 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  剑指 Offer 13. 删除链表的节点
+  剑指 Offer 14. 调整数组顺序使奇数位于偶数前面
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/%E5%89%91%E6%8C%87%20Offer%2013.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9.html" class="article-date">
-  <time datetime="2021-05-30T15:13:00.000Z" itemprop="datePublished">2021-05-30</time>
+      <a href="/%E5%89%91%E6%8C%87%20Offer%2014.%20%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2.html" class="article-date">
+  <time datetime="2021-06-02T08:30:00.000Z" itemprop="datePublished">2021-06-02</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">331</span>
+            <span class="post-count">306</span>
         </span>
     </span>
 
@@ -99,12 +99,14 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h3 id="题目描述No-1"><a href="#题目描述No-1" class="headerlink" title="题目描述No.1"></a>题目描述No.1</h3><p>给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。<br>返回删除后的链表的头节点。</p>
-<h3 id="双指针没什么好说的"><a href="#双指针没什么好说的" class="headerlink" title="双指针没什么好说的"></a>双指针没什么好说的</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">deleteNode</span><span class="params">(ListNode* head, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        ListNode* n_pre = <span class="literal">NULL</span>;</span><br><span class="line">        ListNode* n_cur = head;</span><br><span class="line">        <span class="keyword">if</span> (head==<span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (n_cur &amp;&amp; n_cur-&gt;val!=val) &#123;</span><br><span class="line">            n_pre = n_cur;</span><br><span class="line">            n_cur = n_cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n_cur==head) &#123;</span><br><span class="line">            <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (n_cur)&#123;</span><br><span class="line">            n_pre-&gt;next = n_cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+  <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有奇数位于数组的前半部分，所有偶数位于数组的后半部分。</p>
+<h3 id="常规解法"><a href="#常规解法" class="headerlink" title="常规解法"></a>常规解法</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">exchange</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.size()==<span class="number">0</span>) <span class="keyword">return</span> nums;</span><br><span class="line">        <span class="keyword">auto</span> left = nums.begin(), right = nums.end()<span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (left&lt;right) &#123;</span><br><span class="line">            <span class="keyword">while</span> (left&lt;right &amp;&amp; (*left &amp; <span class="number">0x1</span>) != <span class="number">0</span>) &#123;</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (left&lt;right &amp;&amp; (*right &amp; <span class="number">0x1</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (left&lt;right) &#123;</span><br><span class="line">                <span class="keyword">auto</span> num = *left;</span><br><span class="line">                *left = *right;</span><br><span class="line">                *right = num;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h3 id="题目描述No-2"><a href="#题目描述No-2" class="headerlink" title="题目描述No.2"></a>题目描述No.2</h3><p>给定单向链表的头指针和一个要删除的节点，定义一个函数在<b>O(1)的时间复杂度内</b>删除该节点。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode** head, ListNode* needDelete)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!head || !needDelete) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (needDelete-&gt;next!=<span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="comment">//删除节点不是尾节点，算法复杂度为O(1)</span></span><br><span class="line">            ListNode* pNext = needDelete-&gt;next;</span><br><span class="line">            needDelete-&gt;val = pNext-&gt;val;</span><br><span class="line">            needDelete-&gt;next = pNext-&gt;next;</span><br><span class="line">            <span class="keyword">delete</span> pNext;</span><br><span class="line">            pNext = <span class="literal">NULL</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (*head==needDelete) &#123;</span><br><span class="line">            <span class="comment">//删除节点是头节点，同时不满足上面的if，也是尾节点，算法复杂度为O(1)</span></span><br><span class="line">            <span class="keyword">delete</span> needDelete;</span><br><span class="line">            needDelete = <span class="literal">NULL</span>;</span><br><span class="line">            *head = <span class="literal">NULL</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//删除节点尾节点，算法复杂度为O(n)</span></span><br><span class="line">            ListNode* pNode = *head;</span><br><span class="line">            <span class="keyword">while</span> (pNode-&gt;next!=needDelete) &#123;</span><br><span class="line">                pNode = pNode-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            pNode-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">            <span class="keyword">delete</span> needDelete;</span><br><span class="line">            needDelete = <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>总的平均时间复杂度为[(n-1)*O(1)+O(n)]/n = O(1)</p>
+<h3 id="解耦合"><a href="#解耦合" class="headerlink" title="解耦合"></a>解耦合</h3><p>对奇偶数判断部分进行解耦合，以应对比如</p>
+<ul>
+<li>能被三整除的部分放前面，不能整除的部分后面</li>
+<li>负数放前面，非负数放后面<br>等情况<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">is_even</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (num &amp; <span class="number">0x1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">is_split_by3</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (num%<span class="number">3</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">exchange</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">bool</span> (*func)(<span class="keyword">int</span>))</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.size()==<span class="number">0</span>) <span class="keyword">return</span> nums;</span><br><span class="line">        <span class="keyword">auto</span> left = nums.begin(), right = nums.end()<span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (left&lt;right) &#123;</span><br><span class="line">            <span class="keyword">while</span> (left&lt;right &amp;&amp; func(*left)) &#123;</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (left&lt;right &amp;&amp; !func(*right)) &#123;</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (left&lt;right) &#123;</span><br><span class="line">                <span class="keyword">auto</span> num = *left;</span><br><span class="line">                *left = *right;</span><br><span class="line">                *right = num;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
  
       <!-- reward -->
       
@@ -157,12 +159,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://marjosong.github.io/%E5%89%91%E6%8C%87%20Offer%2013.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://marjosong.github.io/%E5%89%91%E6%8C%87%20Offer%2014.%20%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2.html" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/" rel="tag">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/List/" rel="tag">List</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/" rel="tag">Algorithm</a></li></ul>
 
     </footer>
   </div>
@@ -170,19 +172,10 @@
    
   <nav class="article-nav">
     
-      <a href="/%E5%89%91%E6%8C%87%20Offer%2014.%20%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2.html" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            剑指 Offer 14. 调整数组顺序使奇数位于偶数前面
-          
-        </div>
-      </a>
     
-    
-      <a href="/%E5%89%91%E6%8C%87%20Offer%2012.%20%E6%89%93%E5%8D%B0%E4%BB%8E1%E5%88%B0%E6%9C%80%E5%A4%A7%E7%9A%84n%E4%BD%8D%E6%95%B0.html" class="article-nav-link">
+      <a href="/%E5%89%91%E6%8C%87%20Offer%2013.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">剑指 Offer 12. 打印从1到最大的n位数</div>
+        <div class="article-nav-title">剑指 Offer 13. 删除链表的节点</div>
       </a>
     
   </nav>
