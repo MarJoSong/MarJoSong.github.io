@@ -149,6 +149,55 @@
     
     
     <article
+  id="post-C++11的遍历"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/C++11%E7%9A%84%E9%81%8D%E5%8E%86.html"
+    >C++11的遍历</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/C++11%E7%9A%84%E9%81%8D%E5%8E%86.html" class="article-date">
+  <time datetime="2021-06-08T03:18:00.000Z" itemprop="datePublished">2021-06-08</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> str = <span class="string">&quot;test string&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> ch : str) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; ch &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//char *p_str = &quot;test char*&quot;; //char指针无法用for range遍历</span></span><br><span class="line">    <span class="comment">//for (auto ch : p_str) &#123;&#125;;</span></span><br><span class="line">    <span class="comment">//error:Invalid range expression of type &#x27;char *&#x27;; no viable &#x27;begin&#x27; function available</span></span><br><span class="line">    <span class="keyword">char</span> ch_array[] = <span class="string">&quot;test ch array&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> ch : ch_array) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; ch &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; vec = &#123;<span class="string">&quot;test&quot;</span>&#125;;</span><br><span class="line">    vec.push_back(<span class="string">&quot;vector&quot;</span>);</span><br><span class="line">    <span class="comment">//stl的for range遍历返回类型是容器保存的元素的类型，不是迭代器</span></span><br><span class="line">    <span class="comment">//for(vector&lt;string&gt;::iterator it : vec) //error</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; it : vec) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; it &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt; mp = &#123;&#123;<span class="number">1</span>, <span class="string">&quot;c++&quot;</span>&#125;, &#123;<span class="number">2</span>, <span class="string">&quot;C&quot;</span>&#125;&#125;;</span><br><span class="line">    mp[<span class="number">2</span>] = <span class="string">&quot;java&quot;</span>;</span><br><span class="line">    mp.insert(<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="built_in">string</span>&gt;(<span class="number">3</span>,<span class="string">&quot;Golang&quot;</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//可以返回引用值，通过引用可以修改容器内容，返回常引用，省去了临时变量拷贝的消耗</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span>&amp; it : mp) &#123;</span><br><span class="line">        <span class="comment">//遍历map返回的是pair变量，不是迭代器。</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; it.first &lt;&lt; <span class="string">&quot;\t&quot;</span> &lt;&lt; it.second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;for_each&quot;</span> &lt;&lt; <span class="built_in">endl</span>; <span class="comment">//for_each lambda创建匿名函数</span></span><br><span class="line">    for_each(mp.begin(),mp.end() ,[](<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt; x)-&gt;<span class="keyword">void</span>&#123;<span class="built_in">cout</span> &lt;&lt; x.first &lt;&lt; <span class="string">&quot;\t&quot;</span> &lt;&lt; x.second &lt;&lt; <span class="built_in">endl</span>;&#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-11/" rel="tag">C++11</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-剑指 Offer 15-16. 链表中倒数第k个节点-反转链表"
   class="article article-type-post"
   itemscope
@@ -764,52 +813,6 @@
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/struct/" rel="tag">struct</a></li></ul>
 
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-目标文件的秘密"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E7%A7%98%E5%AF%86.html"
-    >目标文件的秘密</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E7%A7%98%E5%AF%86.html" class="article-date">
-  <time datetime="2021-02-28T13:30:59.000Z" itemprop="datePublished">2021-02-28</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-   
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
     </footer>
   </div>
 
