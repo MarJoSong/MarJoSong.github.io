@@ -332,7 +332,7 @@
 <h3 id="TCP-IP五层协议和OSI的七层协议对应关系"><a href="#TCP-IP五层协议和OSI的七层协议对应关系" class="headerlink" title="TCP/IP五层协议和OSI的七层协议对应关系"></a>TCP/IP五层协议和OSI的七层协议对应关系</h3><hr>
 <p><img src="https://pic.imgdb.cn/item/60af4ee208f74bc159582f82.png"><br><img src="https://pic.imgdb.cn/item/60af4efe08f74bc1595998be.png"></p>
 <h3 id="进程间-线程间共享的资源，通信的方式有哪些？"><a href="#进程间-线程间共享的资源，通信的方式有哪些？" class="headerlink" title="进程间/线程间共享的资源，通信的方式有哪些？"></a>进程间/线程间共享的资源，通信的方式有哪些？</h3><hr>
-]]></content>
+<h2 id="算法篇"><a href="#算法篇" class="headerlink" title="算法篇"></a>算法篇</h2><h3 id="快速排序的性能分析"><a href="#快速排序的性能分析" class="headerlink" title="快速排序的性能分析"></a>快速排序的性能分析</h3>]]></content>
       <tags>
         <tag>面试题</tag>
       </tags>
@@ -474,7 +474,7 @@
 <li>#pragma pack(1) –伪指令指定的对齐模数</li>
 <li>对齐模数，该模数是【#pragma pack指定的数值】、【未指定#pragma pack时，系统默认的对齐模数（32位系统为4字节，64位为8字节）】和【结构体内部最大的基本数据类型成员】长度中数值较小者，结构体成员不能跨对齐模数的倍数</li>
 </ul>
-<p>各个类型的变量长度由编译器来决定（实际上与操作系统位数和编译器都有关）<br>可用sizeof得到，当前主流编译器一般是32位或64位<br>|类型|32位|64位|<br>| —— | —— | —— |<br>|char|1|1|<br>|short int|2|2|<br>|int|4|4|<br>|long int |4|8|<br>|long long int|8|8|<br>|char*| 4|8|<br>|float| 4|4|<br>|double |8|8|</p>
+<p>各个类型的变量长度由编译器来决定（实际上与操作系统位数和编译器都有关）<br>可用sizeof得到，当前主流编译器一般是32位或64位<br>|   类型  |   32位   |  64位  |<br>| :—— | :——: | :—— |<br>|char|1|1|<br>|short int|2|2|<br>|int|4|4|<br>|long int |4|8|<br>|long long int|8|8|<br>|char*| 4|8|<br>|float| 4|4|<br>|double |8|8|</p>
 <h3 id="结构体对齐包括两个方面的含义"><a href="#结构体对齐包括两个方面的含义" class="headerlink" title="结构体对齐包括两个方面的含义"></a>结构体对齐包括两个方面的含义</h3><ul>
 <li>结构体总长度；</li>
 <li>结构体内各数据成员的内存对齐，即该数据成员相对结构体的起始位置；</li>
